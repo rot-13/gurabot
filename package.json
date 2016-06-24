@@ -1,0 +1,27 @@
+{
+  "name": "gurabot",
+  "version": "1.0.0",
+  "description": "CPC GuraBot (Roomba) dashboard.",
+	"repository": "https://github.com/rot-13/gurabot",
+  "main": "./client/index.js",
+	"private": true,
+  "scripts": {
+    "start": "ruby start.rb",
+    "open": "open ./public/index.html",
+		"build": "webpack",
+    "watch": "webpack --watch",
+		"postinstall": "npm run build"
+  },
+  "author": [
+		"Shay Davidson <sdavidson@paypal.com>"
+		"Gilad Goldberg <ggoldberg@paypal.com>",
+		"Benny Weingarten <bweindgarten@paypal.com>"
+	],
+  "license": "MIT",
+  "devDependencies": {
+    "babel-loader": "^6.2.4",
+    "css-loader": "^0.23.1",
+    "sass-loader": "^3.2.1",
+    "webpack": "^1.13.1"
+  }
+}
