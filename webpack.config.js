@@ -1,42 +1,28 @@
-var webpack = require('webpack')
+var webpack = require('webpack');
 
 module.exports = {
-    entry: {
-        'shexy': './src/index.js',
-        'shexy.min': './src/index.js'
-    },
-    output: {
-        libraryTarget: 'var',
-        library: 'Shexy',
-        path: __dirname + '/dist',
-        filename: '[name].js'
-    },
-    optimize: {
-        UglifyJsPlugin: true
-    },
-    module: {
-        loaders: [{
-            test: /\.js?$/,
-            exclude: /(node_modules)/,
-            loader: 'babel'
-        }]
-    },
-    plugins: [
-        new webpack.NoErrorsPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            include: /\.min\.js$/,
-            minimize: true,
-            compress: {
-                warnings: false
-            }
-        })
-    ],
-    stats: {
-        colors: true
-    },
-    resolve: {
-        modulesDirectories: ['.', 'src', 'node_modules'],
-        extensions: ['', '.js']
-    },
-    devtool: 'source-map'
+	entry: 'client/index.js',
+	output: {
+		path: __dirname + '/public',
+		filename: 'index.js'
+	},
+	module: {
+		loaders: [
+			{ test: /\.js?$/, loader: 'babel-loader' },
+			{ test: /\.scss?$/, loader: 'style-loader!css-loader!sass-loader' },
+			{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff' },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' }
+		]
+	},
+	plugins: [
+		new webpack.NoErrorsPlugin()
+	],
+	stats: {
+		colors: true
+	},
+	resolve: {
+		modulesDirectories: ['.', 'src', 'node_modules'],
+		extensions: ['', '.js']
+	},
+	devtool: 'source-map'
 }
