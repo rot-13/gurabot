@@ -12,7 +12,7 @@
     "Benny Weingarten <bweindgarten@paypal.com>"
   ],
   "scripts": {
-    "start": "ruby start.rb",
+    "start": "npm run build && ruby ./server/index.rb",
     "open": "open ./public/index.html",
     "build": "webpack",
     "watch": "webpack --watch",
