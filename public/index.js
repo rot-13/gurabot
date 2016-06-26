@@ -98,6 +98,14 @@
 		}, 5000);
 	});
 
+	$('.btn-camera').click(function () {
+		if ($('.btn-camera').hasClass('btn-success')) {
+			$('.btn-camera').removeClass('btn-success').addClass('btn-warning').text('Disable camera');
+		} else {
+			$('.btn-camera').removeClass('btn-warning').addClass('btn-success').text('Enable camera');
+		}
+	});
+
 	setBattery(1); // TODO: fetch periodically.
 
 /***/ },
@@ -136,7 +144,7 @@
 	exports.i(__webpack_require__(5), "");
 
 	// module
-	exports.push([module.id, ".container-main {\n  padding: .9375rem;\n}\n.bottom-margin {\n  margin-bottom: 0.2rem;\n}\n.battery {\n  font-size: 1.25rem;\n  vertical-align: middle;\n  margin-right: 0.9375rem;\n}\n.disabled {\n  opacity: 0.5;\n  pointer-events: none;\n}\n", ""]);
+	exports.push([module.id, ".container-main {\n  padding: .9375rem;\n}\n.bottom-margin {\n  margin-bottom: 0.2rem;\n}\n.battery {\n  font-size: 1.25rem;\n  vertical-align: middle;\n  margin-right: 0.9375rem;\n}\n.disabled {\n  opacity: 0.5;\n  pointer-events: none;\n}\n.camera {\n  background-color: #c0c0c0;\n  padding-bottom: 75%;\n  width: 100%;\n  height: 100px;\n  position: relative;\n}\n.camera-icon {\n  position: absolute;\n  margin: 0 auto;\n  top: 50%;\n  font-size: 3rem;\n  transform: translateY(-50%);\n  left: 0;\n  right: 0;\n}\n", ""]);
 
 	// exports
 

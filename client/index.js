@@ -49,4 +49,12 @@ $('button[data-snd=true]').click(() => {
 	}, 5000)
 })
 
+$('.btn-camera').click(() => {
+	if ($('.btn-camera').hasClass('btn-success')) {
+		$('.btn-camera').removeClass('btn-success').addClass('btn-warning').text('Disable camera')
+	} else {
+		$('.btn-camera').removeClass('btn-warning').addClass('btn-success').text('Enable camera')
+	}
+})
+
 setBattery(1) // TODO: fetch periodically.
