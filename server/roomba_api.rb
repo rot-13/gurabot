@@ -62,7 +62,7 @@ module RoombaApi
 	def wrecking_ball(roomba)
 		command(roomba) do
 			song(roomba,3,[[70, 1],[70, 1],[70, 1],[70, 1],[70, 1],[70, 3],[69, 1],[69, 7], [65, 1], [70, 1], [69, 1], [67, 1], [65, 1], [70, 3],[69, 1],[69, 4]])
-			roomba.play_sound(3)
+			roomba.play_song(3)
 			# ser.write('\x8c\x03\x10F\x10F\x10F\x10F\x10F\x10F\x30E\x10E\x70A\x10F\x10E\x10C\x10A\x10F\x30E\x10E\x40')
 		end
 	end
