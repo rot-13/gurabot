@@ -33,14 +33,6 @@ get '/' do
 	File.read(File.join(settings.public_folder, 'index.html'))
 end
 
-namespace '/command' do
-	post '/move_forward' do
-		RoombaApi.forward roomba
-	end
-
-get '/' do
-	File.read(File.join(settings.public_folder, 'index.html'))
-end
 
 namespace '/command' do
 	post '/move_forward' do
