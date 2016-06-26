@@ -29,4 +29,11 @@ $('.text-to-speech button').click((e) => {
 	sendCommand('speech', $('.text-to-speech input').val())
 })
 
+$('button[data-snd=true]').click(() => {
+	$('button[data-snd=true]').addClass('disabled')
+	setTimeout(() => {
+		$('button[data-snd=true]').removeClass('disabled')
+	}, 2000)
+})
+
 setBattery(1) // TODO: fetch periodically.
