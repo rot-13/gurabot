@@ -6,6 +6,8 @@ set :root, '../'
 set :public_folder, 'public'
 set :roomba_port, '/dev/ttyUSB0'
 
+set :bind, '0.0.0.0' # listen on all interfaces
+
 begin
 	roomba = Roomba.new(settings.roomba_port)
 rescue Exception => e
