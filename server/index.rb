@@ -33,6 +33,12 @@ get '/' do
 end
 
 
+namespace '/info' do
+	get '/battery' do
+		RoombaApi.battery_percentage(roomba)
+	end
+end
+
 namespace '/command' do
 	post '/move_forward' do
 		RoombaApi.forward roomba

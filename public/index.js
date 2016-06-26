@@ -58,7 +58,7 @@
 
 	function getInfo(type, callback) {
 		$.get('/info/' + type).done(callback).fail(function () {
-			alert('whoops, something went wrong');
+			console.error('whoops, something went wrong');
 		});
 	}
 
@@ -68,7 +68,7 @@
 
 	function setBattery(val) {
 		$('.battery').removeClass('fa-battery-4 fa-battery-3 fa-battery-2 fa-battery-1 fa-battery-0');
-		var classVal = Math.round(val * 4);
+		var classVal = Math.round(val / 100 * 4);
 		$('.battery').addClass('fa-battery-' + classVal);
 	}
 
@@ -106,7 +106,11 @@
 		}
 	});
 
-	setBattery(1); // TODO: fetch periodically.
+	setInterval(function () {
+		getInfo('battery', function (data) {
+			setBattery(parseInt(data));
+		});
+	}, 5000);
 
 /***/ },
 /* 1 */
