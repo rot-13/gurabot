@@ -6,7 +6,7 @@
 # server 'example.com', user: 'deploy', roles: %w{app db web}, my_property: :my_value
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
-server "192.168.2.18", :user => "pi", :roles => %{web app}, ssh_options: { password: 'raspberry' }
+server "192.168.2.217", :user => "pi", :roles => %{web app}, ssh_options: { password: 'raspberry' }
 set :branch, "master"
 set :ssh_options, { :forward_agent => true }
 

@@ -9,7 +9,13 @@ set :roomba_port, '/dev/ttyUSB0'
 set :bind, '0.0.0.0' # listen on all interfaces
 
 begin
-	roomba = Roomba.new(settings.roomba_port)
+	Roomba.new(settings.roomba_port) do
+		safe_mode
+	  forward 1.meter
+	  rotate :left
+	  rotate -90 # degrees
+	end
+
 rescue Exception => e
 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
 end
