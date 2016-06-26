@@ -69,7 +69,7 @@ module RoombaApi
 		roomba.write_chars([143])
 	end
 
-	def sleep(roomba)
+	def go_to_sleep(roomba)
 		return unless roomba
 		roomba.start
 	end

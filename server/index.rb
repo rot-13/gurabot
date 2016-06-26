@@ -75,7 +75,7 @@ namespace '/command' do
 	end
 
 	post '/sleep' do
-		RoombaApi.sleep roomba
+		RoombaApi.go_to_sleep roomba
 		'ok'
 	end
 
