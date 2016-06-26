@@ -74,12 +74,12 @@
 
 	$('.btn-command').click(sendCommandHandler);
 
-	$('.btn-move-command').on('mousedown touchdown', function () {
+	$('.btn-move-command').on('mousedown touchend', function () {
 		window.moving = true;
 		sendCommand($(this).data('move-cmd-id'));
 	});
 
-	$('body').on('mouseup touchup', function () {
+	$('body').on('mouseup touchstart', function () {
 		if (window.moving) {
 			window.moving = false;
 			sendCommand('halt');

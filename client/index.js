@@ -26,11 +26,13 @@ function setBattery(val) {
 $('.btn-command').click(sendCommandHandler)
 
 $('.btn-move-command').on('mousedown touchend', function() {
+	e.preventDefault();
 	window.moving = true
 	sendCommand($(this).data('move-cmd-id'))
 })
 
-$('body').on('mouseup touchstart', () => {
+$('body').on('mouseup touchstart', (e) => {
+	e.preventDefault();
 	if (window.moving) {
 		window.moving = false
 		sendCommand('halt')
