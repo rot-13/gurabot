@@ -25,5 +25,4 @@ get '/' do
 end
 
 post '/command/move_forward' do
-	puts "hey!"
 end
