@@ -67,7 +67,7 @@ namespace '/command' do
 		RoombaApi.shutdown roomba
 	end
 
-	post 'wrekcing_ball' do
+	post '/songs/wrecking_ball' do
 		RoombaApi.wrecking_ball roomba
 	end
 
