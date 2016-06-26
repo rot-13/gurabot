@@ -79,6 +79,9 @@ module RoombaApi
 		roomba.full_mode
 	end
 
+	def clean(roomba)
+		roomba.write_chars([135])
+	end
 
 	######################
 
