@@ -25,12 +25,12 @@ function setBattery(val) {
 
 $('.btn-command').click(sendCommandHandler)
 
-$('.btn-move-command').mousedown(function() {
+$('.btn-move-command').on('mousedown touchdown', function() {
 	window.moving = true
 	sendCommand($(this).data('move-cmd-id'))
 })
 
-$('body').mouseup(() => {
+$('body').on('mouseup touchup', () => {
 	if (window.moving) {
 		window.moving = false
 		sendCommand('halt')
