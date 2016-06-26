@@ -59,7 +59,7 @@ module RoombaApi
 		end
 	end
 
-	def wrecking_ball(roomba) 
+	def wrecking_ball(roomba)
 		command(roomba) do
 			sound(roomba,3,[[70, 1],[70, 1],[70, 1],[70, 1],[70, 1],[70, 3],[69, 1],[69, 7], [65, 1], [70, 1], [69, 1], [67, 1], [65, 1], [70, 3],[69, 1],[69, 4]])
 			roomba.play_sound(3)
@@ -70,7 +70,7 @@ module RoombaApi
 
 	def command(roomba)
 		return unless roomba
-
+		# 
 		# if get_mode(roomba) != MODES[:full]
 		# 	roomba.full_mode
 		# end
@@ -86,7 +86,7 @@ module RoombaApi
 	# A fixed version of Roomba's song function
 	def song(roomba, song_number, notes)
 	    raise RangeError if song_number < 0 || song_number > 15
-	    
+
 	    notes.map! do |i|
 	      note, duration = i
 
