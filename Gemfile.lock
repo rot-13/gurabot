@@ -13,6 +13,9 @@ GEM
       capistrano (~> 3.1)
       sshkit (~> 1.2)
     capistrano-harrow (0.5.2)
+    capistrano-rbenv (2.0.4)
+      capistrano (~> 3.1)
+      sshkit (~> 1.3)
     colorize (0.7.7)
     i18n (0.7.0)
     net-scp (1.2.1)
@@ -40,6 +43,7 @@ PLATFORMS
 DEPENDENCIES
   capistrano
   capistrano-bundler
+  capistrano-rbenv (~> 2.0)
   colorize (= 0.7.7)
   rumba (= 0.2.6)
   sinatra (= 1.4.7)
