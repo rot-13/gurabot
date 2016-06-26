@@ -121,13 +121,7 @@ namespace '/command' do
 			'yesh_action'
 		].each do |gura_sound|
 			post "/#{gura_sound}" do
-				options = {
-					:channels => [0,1],
-					:latency => 0,
-					:output_device => 0
-				}
-
-				AudioPlayback.play("./server/wavs/#{gura_sound}.wav", options)
+				system("aplay", File.absolute_path("./server/wavs/#{gura_sound}.wav")
 				'ok'
 			end
 		end
