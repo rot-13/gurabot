@@ -3,7 +3,7 @@ require 'rumba'
 require 'colorize'
 require "audio-playback"
 require "sinatra/namespace"
-require "roomba_api"
+require_relative "./roomba_api"
 require "espeak"
 
 include ESpeak
