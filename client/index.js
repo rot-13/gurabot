@@ -1,4 +1,4 @@
-require('index.scss')
+require('index.less')
 
 const $ = require('jquery')
 
