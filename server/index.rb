@@ -15,3 +15,7 @@ end
 get '/' do
 	File.read(File.join(settings.public_folder, 'index.html'))
 end
+
+post '/command/move_forward' do
+	puts "hey!"
+end
