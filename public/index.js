@@ -100,9 +100,9 @@
 
 	$('.btn-camera').click(function () {
 		if ($('.btn-camera').hasClass('btn-success')) {
-			$('.btn-camera').removeClass('btn-success').addClass('btn-warning').text('Disable camera');
+			$('.btn-camera').removeClass('btn-success').addClass('btn-warning');
 		} else {
-			$('.btn-camera').removeClass('btn-warning').addClass('btn-success').text('Enable camera');
+			$('.btn-camera').removeClass('btn-warning').addClass('btn-success');
 		}
 	});
 
