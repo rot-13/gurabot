@@ -58,7 +58,7 @@
 
 	function getInfo(type, callback) {
 		$.get('/info/' + type).done(callback).fail(function () {
-			console.error('whoops, something went wrong');
+			alert('whoops, something went wrong');
 		});
 	}
 
@@ -68,18 +68,18 @@
 
 	function setBattery(val) {
 		$('.battery').removeClass('fa-battery-4 fa-battery-3 fa-battery-2 fa-battery-1 fa-battery-0');
-		var classVal = Math.round(val / 100 * 4);
+		var classVal = Math.round(val * 4);
 		$('.battery').addClass('fa-battery-' + classVal);
 	}
 
 	$('.btn-command').click(sendCommandHandler);
 
-	$('.btn-move-command').on('mousedown touchend', function () {
+	$('.btn-move-command').on('mousedown touchstart', function () {
 		window.moving = true;
 		sendCommand($(this).data('move-cmd-id'));
 	});
 
-	$('body').on('mouseup touchstart', function () {
+	$('body').on('mouseup touchend', function (e) {
 		if (window.moving) {
 			window.moving = false;
 			sendCommand('halt');
@@ -106,11 +106,7 @@
 		}
 	});
 
-	setInterval(function () {
-		getInfo('battery', function (data) {
-			setBattery(parseInt(data));
-		});
-	}, 5000);
+	setBattery(1); // TODO: fetch periodically.
 
 /***/ },
 /* 1 */

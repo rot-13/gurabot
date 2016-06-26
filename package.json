@@ -16,6 +16,7 @@
     "open": "open ./public/index.html",
     "build": "webpack",
     "watch": "webpack --watch",
+		"deploy": "bundle exec cap production deploy",
     "postinstall": "bundle install && npm run build"
   },
   "license": "MIT",
