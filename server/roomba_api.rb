@@ -69,12 +69,14 @@ module RoombaApi
 	######################
 
 	def command(roomba)
-		if get_mode != MODES[:full]
-			roomba.full_mode
-		end
+		return unless roomba
+
+		# if get_mode(roomba) != MODES[:full]
+		# 	roomba.full_mode
+		# end
 		yield
 		# start sets the roomba to passive mode
-		# roomba.star	t
+		# roomba.start
 	end
 
 	def get_mode(roomba)

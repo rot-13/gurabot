@@ -25,12 +25,16 @@ function setBattery(val) {
 
 $('.btn-command').click(sendCommandHandler)
 
-$('.btn-move-command').mousedown(() => {
-	console.log('test')
+$('.btn-move-command').mousedown(function() {
+	window.moving = true
+	sendCommand($(this).data('move-cmd-id'))
 })
 
-$('.btn-move-command').mouseup(() => {
-	console.log('test')
+$('body').mouseup(() => {
+	if (window.moving) {
+		window.moving = false
+		sendCommand('halt')
+	}
 })
 
 $('.text-to-speech button').click((e) => {
@@ -42,7 +46,15 @@ $('button[data-snd=true]').click(() => {
 	$('button[data-snd=true]').addClass('disabled')
 	setTimeout(() => {
 		$('button[data-snd=true]').removeClass('disabled')
-	}, 2000)
+	}, 5000)
+})
+
+$('.btn-camera').click(() => {
+	if ($('.btn-camera').hasClass('btn-success')) {
+		$('.btn-camera').removeClass('btn-success').addClass('btn-warning').text('Disable camera')
+	} else {
+		$('.btn-camera').removeClass('btn-warning').addClass('btn-success').text('Enable camera')
+	}
 })
 
 setBattery(1) // TODO: fetch periodically.
