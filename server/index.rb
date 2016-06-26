@@ -119,7 +119,7 @@ namespace '/command' do
 			post "/#{gura_sound}" do
 				options = {
 					:channels => [0,1],
-					:latency => 1,
+					:latency => 0,
 					:output_device => 0
 				}
 
