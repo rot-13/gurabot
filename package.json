@@ -16,7 +16,7 @@
     "open": "open ./public/index.html",
     "build": "webpack",
     "watch": "webpack --watch",
-    "postinstall": "npm run build"
+    "postinstall": "bundle install && npm run build"
   },
   "license": "MIT",
   "dependencies": {
