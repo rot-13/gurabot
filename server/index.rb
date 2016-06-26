@@ -3,16 +3,19 @@ require 'rumba'
 require 'colorize'
 require "audio-playback"
 require "sinatra/namespace"
-
+require "roomba_api"
 
 set :root, '../'
 set :public_folder, 'public'
 set :roomba_port, '/dev/ttyUSB0'
+set :roomba_baud_rate, 115200
 
 set :bind, '0.0.0.0' # listen on all interfaces
 
+roomba = nil
+
 begin
-	Roomba.new(settings.roomba_port)
+	roomba = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
 rescue Exception => e
 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
 end
@@ -23,7 +26,7 @@ end
 
 namespace '/command' do
 	post '/move_forward' do
-		puts "hey!"
+		RoombaApi.move_forward roomba
 	end
 
 	namespace '/gura' do
