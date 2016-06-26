@@ -16,14 +16,18 @@ set :roomba_baud_rate, 115200
 
 set :bind, '0.0.0.0' # listen on all interfaces
 
-roomba = nil
-
-begin
-	roomba = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
-	roomba.full_mode
+def roomba
+	Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
 rescue Exception => e
 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
 end
+
+# begin
+# 	roomba =
+# 	roomba.full_mode
+# rescue Exception => e
+# 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
+# end
 
 get '/' do
 	File.read(File.join(settings.public_folder, 'index.html'))
