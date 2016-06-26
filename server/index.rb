@@ -91,6 +91,11 @@ namespace '/command' do
 		'ok'
 	end
 
+	post '/dock' do
+		RoombaApi.dock roomba
+		'ok'
+	end
+
 	namespace '/gura' do
 		[
 			'akol_esh',

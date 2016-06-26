@@ -70,6 +70,12 @@ module RoombaApi
 	def battery_percentage(roomba)
 		roomba.battery_percentage.to_s
 	end
+
+	def dock(roomba)
+		roomba.write_chars([143])
+	end
+
+
 	######################
 
 	def command(roomba)
