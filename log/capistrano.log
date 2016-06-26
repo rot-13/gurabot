@@ -74,3 +74,65 @@
   INFO [9e2f29a1] Running /usr/bin/env bundle install --path /home/pi/gurabot/shared/bundle --without development test --deployment --quiet as pi@192.168.2.18
  DEBUG [9e2f29a1] Command: cd /home/pi/gurabot/releases/20160626073515 && /usr/bin/env bundle install --path /home/pi/gurabot/shared/bundle --without development test --deployment --quiet
  DEBUG [9e2f29a1] 	Your Ruby version is 1.9.3, but your Gemfile specified 2.3.0
+  INFO ---------------------------------------------------------------------------
+  INFO START 2016-06-26 10:38:56 +0300 cap production deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [f0e43c42] Running /usr/bin/env mkdir -p /tmp/gurabot/ as pi@192.168.2.18
+ DEBUG [f0e43c42] Command: /usr/bin/env mkdir -p /tmp/gurabot/
+  INFO [f0e43c42] Finished in 1.378 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/gurabot/git-ssh.sh 0.0%
+  INFO Uploading /tmp/gurabot/git-ssh.sh 100.0%
+  INFO [b029559a] Running /usr/bin/env chmod +rx /tmp/gurabot/git-ssh.sh as pi@192.168.2.18
+ DEBUG [b029559a] Command: /usr/bin/env chmod +rx /tmp/gurabot/git-ssh.sh
+  INFO [b029559a] Finished in 0.027 seconds with exit status 0 (successful).
+  INFO [2713118f] Running /usr/bin/env git ls-remote --heads git@github.com:rot-13/gurabot.git as pi@192.168.2.18
+ DEBUG [2713118f] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/gurabot/git-ssh.sh" ; /usr/bin/env git ls-remote --heads git@github.com:rot-13/gurabot.git )
+ DEBUG [2713118f] 	3ddc0ab6c1c516210c30b68f1e194829314e00d2	refs/heads/master
+  INFO [2713118f] Finished in 11.551 seconds with exit status 0 (successful).
+  INFO [cd5cc032] Running /usr/bin/env mkdir -p /home/pi/gurabot/shared /home/pi/gurabot/releases as pi@192.168.2.18
+ DEBUG [cd5cc032] Command: /usr/bin/env mkdir -p /home/pi/gurabot/shared /home/pi/gurabot/releases
+  INFO [cd5cc032] Finished in 0.040 seconds with exit status 0 (successful).
+ DEBUG [07399956] Running [ -f /home/pi/gurabot/current/REVISION ] as pi@192.168.2.18
+ DEBUG [07399956] Command: [ -f /home/pi/gurabot/current/REVISION ]
+ DEBUG [07399956] Finished in 0.027 seconds with exit status 1 (failed).
+ DEBUG [e62a60a0] Running [ -f /home/pi/gurabot/repo/HEAD ] as pi@192.168.2.18
+ DEBUG [e62a60a0] Command: [ -f /home/pi/gurabot/repo/HEAD ]
+ DEBUG [e62a60a0] Finished in 0.055 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /home/pi/gurabot/repo
+ DEBUG [d7be8b3c] Running if test ! -d /home/pi/gurabot/repo; then echo "Directory does not exist '/home/pi/gurabot/repo'" 1>&2; false; fi as pi@192.168.2.18
+ DEBUG [d7be8b3c] Command: if test ! -d /home/pi/gurabot/repo; then echo "Directory does not exist '/home/pi/gurabot/repo'" 1>&2; false; fi
+ DEBUG [d7be8b3c] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO [096fd202] Running /usr/bin/env git remote update --prune as pi@192.168.2.18
+ DEBUG [096fd202] Command: cd /home/pi/gurabot/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/gurabot/git-ssh.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [096fd202] 	Fetching origin
+ DEBUG [096fd202] 	From github.com:rot-13/gurabot
+ DEBUG [096fd202] 	   1427104..3ddc0ab  master     -> master
+  INFO [096fd202] Finished in 2.652 seconds with exit status 0 (successful).
+ DEBUG [41278a84] Running if test ! -d /home/pi/gurabot/repo; then echo "Directory does not exist '/home/pi/gurabot/repo'" 1>&2; false; fi as pi@192.168.2.18
+ DEBUG [41278a84] Command: if test ! -d /home/pi/gurabot/repo; then echo "Directory does not exist '/home/pi/gurabot/repo'" 1>&2; false; fi
+ DEBUG [41278a84] Finished in 0.039 seconds with exit status 0 (successful).
+  INFO [0d84590b] Running /usr/bin/env mkdir -p /home/pi/gurabot/releases/20160626073910 as pi@192.168.2.18
+ DEBUG [0d84590b] Command: cd /home/pi/gurabot/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/gurabot/git-ssh.sh" ; /usr/bin/env mkdir -p /home/pi/gurabot/releases/20160626073910 )
+  INFO [0d84590b] Finished in 0.049 seconds with exit status 0 (successful).
+  INFO [949fa306] Running /usr/bin/env git archive master | tar -x -f - -C /home/pi/gurabot/releases/20160626073910 as pi@192.168.2.18
+ DEBUG [949fa306] Command: cd /home/pi/gurabot/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/gurabot/git-ssh.sh" ; /usr/bin/env git archive master | tar -x -f - -C /home/pi/gurabot/releases/20160626073910 )
+  INFO [949fa306] Finished in 0.074 seconds with exit status 0 (successful).
+ DEBUG [0a63e3d0] Running if test ! -d /home/pi/gurabot/repo; then echo "Directory does not exist '/home/pi/gurabot/repo'" 1>&2; false; fi as pi@192.168.2.18
+ DEBUG [0a63e3d0] Command: if test ! -d /home/pi/gurabot/repo; then echo "Directory does not exist '/home/pi/gurabot/repo'" 1>&2; false; fi
+ DEBUG [0a63e3d0] Finished in 0.029 seconds with exit status 0 (successful).
+ DEBUG [96d4baac] Running /usr/bin/env git rev-list --max-count=1 master as pi@192.168.2.18
+ DEBUG [96d4baac] Command: cd /home/pi/gurabot/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/gurabot/git-ssh.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [96d4baac] 	3ddc0ab6c1c516210c30b68f1e194829314e00d2
+ DEBUG [96d4baac] Finished in 0.041 seconds with exit status 0 (successful).
+ DEBUG [581df0c5] Running if test ! -d /home/pi/gurabot/releases/20160626073910; then echo "Directory does not exist '/home/pi/gurabot/releases/20160626073910'" 1>&2; false; fi as pi@192.168.2.18
+ DEBUG [581df0c5] Command: if test ! -d /home/pi/gurabot/releases/20160626073910; then echo "Directory does not exist '/home/pi/gurabot/releases/20160626073910'" 1>&2; false; fi
+ DEBUG [581df0c5] Finished in 0.031 seconds with exit status 0 (successful).
+  INFO [8787fce8] Running /usr/bin/env echo "3ddc0ab6c1c516210c30b68f1e194829314e00d2" >> REVISION as pi@192.168.2.18
+ DEBUG [8787fce8] Command: cd /home/pi/gurabot/releases/20160626073910 && /usr/bin/env echo "3ddc0ab6c1c516210c30b68f1e194829314e00d2" >> REVISION
+  INFO [8787fce8] Finished in 0.040 seconds with exit status 0 (successful).
+ DEBUG [9fc29724] Running if test ! -d /home/pi/gurabot/releases/20160626073910; then echo "Directory does not exist '/home/pi/gurabot/releases/20160626073910'" 1>&2; false; fi as pi@192.168.2.18
+ DEBUG [9fc29724] Command: if test ! -d /home/pi/gurabot/releases/20160626073910; then echo "Directory does not exist '/home/pi/gurabot/releases/20160626073910'" 1>&2; false; fi
+ DEBUG [9fc29724] Finished in 0.037 seconds with exit status 0 (successful).
+  INFO [42752cc9] Running /usr/bin/env bundle install --path /home/pi/gurabot/shared/bundle --without development test --deployment --quiet as pi@192.168.2.18
+ DEBUG [42752cc9] Command: cd /home/pi/gurabot/releases/20160626073910 && /usr/bin/env bundle install --path /home/pi/gurabot/shared/bundle --without development test --deployment --quiet
+ DEBUG [42752cc9] 	Your Ruby version is 1.9.3, but your Gemfile specified 2.3.1
