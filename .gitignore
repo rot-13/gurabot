@@ -2,11 +2,4 @@
 node_modules
 tmp
 npm-debug.log
-public/index.js
-public/index.js.map
-public/*.svg
-public/*.ttf
-public/*.eot
-public/*.woff
-public/*.woff2
 log
