@@ -67,6 +67,10 @@ namespace '/command' do
 		RoombaApi.shutdown roomba
 	end
 
+	post 'wrekcing_ball' do
+		RoombaApi.wrecking_ball roomba
+	end
+
 	post '/speech' do
 		text = request.body.read.to_s
 		Speech.new(text, voice: "en-uk", pitch: 50, speed: 100).speak
