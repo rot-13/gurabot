@@ -26,11 +26,15 @@ function setBattery(val) {
 $('.btn-command').click(sendCommandHandler)
 
 $('.btn-move-command').mousedown(function() {
+	window.moving = true
 	sendCommand($(this).data('move-cmd-id'))
 })
 
-$('.btn-move-command').mouseup(() => {
-	sendCommand('halt')
+$('body').mouseup(() => {
+	if (window.moving) {
+		window.moving = false
+		sendCommand('halt')
+	}
 })
 
 $('.text-to-speech button').click((e) => {
@@ -42,7 +46,7 @@ $('button[data-snd=true]').click(() => {
 	$('button[data-snd=true]').addClass('disabled')
 	setTimeout(() => {
 		$('button[data-snd=true]').removeClass('disabled')
-	}, 2000)
+	}, 5000)
 })
 
 setBattery(1) // TODO: fetch periodically.

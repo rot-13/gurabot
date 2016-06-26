@@ -75,11 +75,15 @@
 	$('.btn-command').click(sendCommandHandler);
 
 	$('.btn-move-command').mousedown(function () {
+		window.moving = true;
 		sendCommand($(this).data('move-cmd-id'));
 	});
 
-	$('.btn-move-command').mouseup(function () {
-		sendCommand('halt');
+	$('body').mouseup(function () {
+		if (window.moving) {
+			window.moving = false;
+			sendCommand('halt');
+		}
 	});
 
 	$('.text-to-speech button').click(function (e) {
@@ -91,7 +95,7 @@
 		$('button[data-snd=true]').addClass('disabled');
 		setTimeout(function () {
 			$('button[data-snd=true]').removeClass('disabled');
-		}, 2000);
+		}, 5000);
 	});
 
 	setBattery(1); // TODO: fetch periodically.
