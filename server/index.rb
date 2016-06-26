@@ -20,6 +20,7 @@ roomba = nil
 
 begin
 	roomba = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
+	roomba.full_mode
 rescue Exception => e
 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
 end
