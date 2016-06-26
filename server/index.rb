@@ -27,8 +27,6 @@ namespace '/command' do
 	end
 
 	namespace '/gura' do
-
-
 		[
 			'akol_esh',
 			'eich_aya_sofash',
@@ -54,10 +52,8 @@ namespace '/command' do
 					:latency => 1
 				}
 
-				playback = AudioPlayback.play("./server/wavs/#{gura_sound}.wav", options)
+				AudioPlayback.play("./server/wavs/#{gura_sound}.wav", options)
 
-				# Play in the foreground
-				playback.block
 			end
 		end
 
