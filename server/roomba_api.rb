@@ -66,6 +66,10 @@ module RoombaApi
 			# ser.write('\x8c\x03\x10F\x10F\x10F\x10F\x10F\x10F\x30E\x10E\x70A\x10F\x10E\x10C\x10A\x10F\x30E\x10E\x40')
 		end
 	end
+
+	def battery_percentage(roomba)
+		roomba.battery_percentage.to_s
+	end
 	######################
 
 	def command(roomba)

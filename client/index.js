@@ -10,7 +10,7 @@ function sendCommand(type, data) {
 function getInfo(type, callback) {
 	$.get(`/info/${type}`)
 		.done(callback)
-		.fail(() => { alert('whoops, something went wrong') })
+		.fail(() => { console.error('whoops, something went wrong') })
 }
 
 function sendCommandHandler() {
@@ -19,7 +19,7 @@ function sendCommandHandler() {
 
 function setBattery(val) {
 	$('.battery').removeClass('fa-battery-4 fa-battery-3 fa-battery-2 fa-battery-1 fa-battery-0')
-	let classVal = Math.round(val * 4)
+	let classVal = Math.round((val / 100) * 4)
 	$('.battery').addClass(`fa-battery-${classVal}`)
 }
 
@@ -57,4 +57,8 @@ $('.btn-camera').click(() => {
 	}
 })
 
-setBattery(1) // TODO: fetch periodically.
+setInterval(() => {
+	getInfo('battery', (data) => {
+		setBattery(parseInt(data))
+	})
+}, 5000)
