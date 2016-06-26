@@ -74,17 +74,13 @@ module RoombaApi
 
 	def command(roomba)
 		return unless roomba
-		#
-		# if get_mode(roomba) != MODES[:full]
-		# 	roomba.full_mode
-		# end
+
+		if get_mode(roomba) != MODES[:full]
+			roomba.full_mode
+		end
 		yield
 		# start sets the roomba to passive mode
 		# roomba.start
-	end
-
-	def get_mode(roomba)
-		return MODES[:passive]
 	end
 
 	# A fixed version of Roomba's song function
