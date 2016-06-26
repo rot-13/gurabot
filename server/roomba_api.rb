@@ -82,8 +82,7 @@ module RoombaApi
 		return unless roomba
 		roomba.full_mode
 		yield
-		# start sets the roomba to passive mode
-		# roomba.start
+		roomba.start
 	end
 
 	# A fixed version of Roomba's song function
