@@ -3,7 +3,9 @@ require 'rumba'
 require 'colorize'
 require "audio-playback"
 require "sinatra/namespace"
+require "espeak"
 
+include ESpeak
 
 set :root, '../'
 set :public_folder, 'public'
@@ -24,6 +26,11 @@ end
 namespace '/command' do
 	post '/move_forward' do
 		puts "hey!"
+	end
+
+	post '/speech' do
+		text = request.body.read.to_s
+		Speech.new(text, voice: "en-uk", pitch: 50, speed: 100).speak
 	end
 
 	namespace '/gura' do
