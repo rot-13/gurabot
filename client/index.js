@@ -14,7 +14,7 @@ function getInfo(type, callback) {
 }
 
 function sendCommandHandler() {
-	sendCommand(this.id)
+	sendCommand($(this).data('cmd-id'))
 }
 
 function setBattery(val) {
@@ -23,7 +23,6 @@ function setBattery(val) {
 	$('.battery').addClass(`fa-battery-${classVal}`)
 }
 
-$('#move_forward').click(sendCommandHandler)
-$('#move_backward').click(sendCommandHandler)
+$('.btn-command').click(sendCommandHandler)
 
 setBattery(1) // TODO: fetch periodically.
