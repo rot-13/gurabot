@@ -64,6 +64,7 @@ namespace '/command' do
 				options = {
 					:channels => [0,1],
 					:latency => 1
+					:output_device => 0
 				}
 
 				AudioPlayback.play("./server/wavs/#{gura_sound}.wav", options)
