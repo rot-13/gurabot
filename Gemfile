@@ -10,4 +10,3 @@ gem 'capistrano-rbenv', '~> 2.0'
 gem "audio-playback"
 gem 'sinatra-contrib'
 gem "espeak-ruby", require: "espeak"
-gem 'unicorn'

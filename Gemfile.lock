@@ -29,7 +29,6 @@ GEM
     ffi-portaudio (0.1.2)
       ffi
     i18n (0.7.0)
-    kgio (2.10.0)
     multi_json (1.12.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -39,7 +38,6 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    raindrops (0.16.0)
     rake (11.2.2)
     ruby-audio (1.6.1)
     rumba (0.2.6)
@@ -60,9 +58,6 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     tilt (2.0.5)
-    unicorn (5.1.0)
-      kgio (~> 2.6)
-      raindrops (~> 0.7)
 
 PLATFORMS
   ruby
@@ -77,7 +72,6 @@ DEPENDENCIES
   rumba (= 0.2.6)
   sinatra (= 1.4.7)
   sinatra-contrib
-  unicorn
 
 RUBY VERSION
    ruby 2.3.0p0
