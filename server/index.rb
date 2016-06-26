@@ -36,43 +36,53 @@ end
 namespace '/command' do
 	post '/move_forward' do
 		RoombaApi.forward roomba
+		'ok'
 	end
 
 	post '/move_backward' do
 		RoombaApi.backward roomba
+		'ok'
 	end
 
 	post '/rotate_left' do
 		RoombaApi.left roomba
+		'ok'
 	end
 
 	post '/rotate_right' do
 		RoombaApi.right roomba
+		'ok'
 	end
 
 	post '/halt' do
 		RoombaApi.halt roomba
+		'ok'
 	end
 
 	post '/dock' do
 		RoombaApi.dock roomba
+		'ok'
 	end
 
 	post '/clean' do
 		RoombaApi.clean roomba
+		'ok'
 	end
 
 	post '/shutdown' do
 		RoombaApi.shutdown roomba
+		'ok'
 	end
 
 	post '/songs/wrecking_ball' do
 		RoombaApi.wrecking_ball roomba
+		'ok'
 	end
 
 	post '/speech' do
 		text = request.body.read.to_s
 		Speech.new(text, voice: "en-uk", pitch: 50, speed: 100).speak
+		'ok'
 	end
 
 	namespace '/gura' do
@@ -103,7 +113,7 @@ namespace '/command' do
 				}
 
 				AudioPlayback.play("./server/wavs/#{gura_sound}.wav", options)
-
+				'ok'
 			end
 		end
 
