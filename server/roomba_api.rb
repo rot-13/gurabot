@@ -76,7 +76,7 @@ module RoombaApi
 
 	def wake(roomba)
 		return unless roomba
-		roomba.full_mode
+		roomba.safe_mode
 	end
 
 	def clean(roomba)

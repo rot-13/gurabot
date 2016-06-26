@@ -17,7 +17,7 @@ set :bind, '0.0.0.0' # listen on all interfaces
 
 begin
 	roomba = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
-	# roomba.full_mode if roomba
+	roomba.safe_mode if roomba
 rescue Exception => e
 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
 end
