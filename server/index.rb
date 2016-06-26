@@ -15,15 +15,9 @@ set :roomba_port, '/dev/ttyUSB0'
 set :roomba_baud_rate, 115200
 set :bind, '0.0.0.0' # listen on all interfaces
 
-# def roomba
-# 	Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
-# rescue Exception => e
-# 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
-# end
-
 begin
 	roomba = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
-	roomba.full_mode
+	roomba.full_mode if roomba
 rescue Exception => e
 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
 end
@@ -75,8 +69,13 @@ namespace '/command' do
 		'ok'
 	end
 
-	post '/shutdown' do
-		RoombaApi.shutdown roomba
+	post '/wake' do
+		RoombaApi.wake roomba
+		'ok'
+	end
+
+	post '/sleep' do
+		RoombaApi.sleep roomba
 		'ok'
 	end
 

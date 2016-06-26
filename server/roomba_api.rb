@@ -53,12 +53,6 @@ module RoombaApi
 		end
 	end
 
-	def shutdown(roomba)
-		command(roomba) do
-			roomba.power_off # TODO: check this.
-		end
-	end
-
 	def wrecking_ball(roomba)
 		command(roomba) do
 			song(roomba,3,[[70, 1],[70, 1],[70, 1],[70, 1],[70, 1],[70, 3],[69, 1],[69, 7], [65, 1], [70, 1], [69, 1], [67, 1], [65, 1], [70, 3],[69, 1],[69, 4]])
@@ -75,14 +69,22 @@ module RoombaApi
 		roomba.write_chars([143])
 	end
 
+	def sleep(roomba)
+		return unless roomba
+		roomba.start
+	end
+
+	def wake(roomba)
+		return unless roomba
+		roomba.full_mode
+	end
+
 
 	######################
 
 	def command(roomba)
 		return unless roomba
-		roomba.full_mode
 		yield
-		roomba.start
 	end
 
 	# A fixed version of Roomba's song function
