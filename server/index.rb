@@ -96,6 +96,11 @@ namespace '/command' do
 		'ok'
 	end
 
+	post '/clean' do
+		RoombaApi.clean roomba
+		'ok'
+	end
+
 	namespace '/gura' do
 		[
 			'akol_esh',

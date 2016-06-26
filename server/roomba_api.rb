@@ -75,6 +75,9 @@ module RoombaApi
 		roomba.write_chars([143])
 	end
 
+	def clean(roomba)
+		roomba.write_chars([135])
+	end
 
 	######################
 
