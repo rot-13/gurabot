@@ -1,9 +1,9 @@
 module RoombaApi
 
 	SLOW_VELOCITY = 100
-	MED_VELOCITY = 200
+	MED_VELOCITY = 250
 
-	VELOCITY = SLOW_VELOCITY
+	VELOCITY = MED_VELOCITY
 
 	MODES = {
 		passive: 1,
@@ -13,25 +13,25 @@ module RoombaApi
 
 	def forward(roomba)
 		command(roomba) do
-			roomba.straight(SLOW_VELOCITY)
+			roomba.straight(VELOCITY)
 		end
 	end
 
 	def backward(roomba)
 		command(roomba) do
-			roomba.straight(-SLOW_VELOCITY)
+			roomba.straight(-VELOCITY)
 		end
 	end
 
 	def left(roomba)
 		command(roomba) do
-			roomba.spin_left(SLOW_VELOCITY)
+			roomba.spin_left(VELOCITY)
 		end
 	end
 
 	def right(roomba)
 		command(roomba) do
-			roomba.spin_right(SLOW_VELOCITY)
+			roomba.spin_right(VELOCITY)
 		end
 	end
 
@@ -70,7 +70,7 @@ module RoombaApi
 
 	def command(roomba)
 		return unless roomba
-		# 
+		#
 		# if get_mode(roomba) != MODES[:full]
 		# 	roomba.full_mode
 		# end
