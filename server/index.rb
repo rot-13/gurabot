@@ -29,7 +29,37 @@ end
 
 namespace '/command' do
 	post '/move_forward' do
-		RoombaApi.move_forward roomba
+		puts 'moving forward'
+		RoombaApi.forward roomba
+	end
+
+	post '/move_backward' do
+		RoombaApi.backward roomba
+	end
+
+	post '/rotate_left' do
+		RoombaApi.left roomba
+	end
+
+	post '/rotate_right' do
+		RoombaApi.right roomba
+	end
+
+	post '/halt' do
+		puts 'halting'
+		RoombaApi.halt roomba
+	end
+
+	post '/dock' do
+		RoombaApi.dock roomba
+	end
+
+	post '/clean' do
+		RoombaApi.clean roomba
+	end
+
+	post '/shutdown' do
+		RoombaApi.shutdown roomba
 	end
 
 	post '/speech' do

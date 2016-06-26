@@ -73,6 +73,15 @@
 	}
 
 	$('.btn-command').click(sendCommandHandler);
+
+	$('.btn-move-command').mousedown(function () {
+		console.log('test');
+	});
+
+	$('.btn-move-command').mouseup(function () {
+		console.log('test');
+	});
+
 	$('.text-to-speech button').click(function (e) {
 		e.preventDefault();
 		sendCommand('speech', $('.text-to-speech input').val());
