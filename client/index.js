@@ -51,9 +51,9 @@ $('button[data-snd=true]').click(() => {
 
 $('.btn-camera').click(() => {
 	if ($('.btn-camera').hasClass('btn-success')) {
-		$('.btn-camera').removeClass('btn-success').addClass('btn-warning')
+		$('.btn-camera').removeClass('btn-success').addClass('btn-danger')
 	} else {
-		$('.btn-camera').removeClass('btn-warning').addClass('btn-success')
+		$('.btn-camera').removeClass('btn-danger').addClass('btn-success')
 	}
 })
 
