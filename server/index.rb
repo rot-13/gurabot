@@ -6,6 +6,7 @@ require "sinatra/namespace"
 require_relative "./roomba_api"
 require "espeak"
 
+include RoombaApi
 include ESpeak
 
 set :root, '../'
@@ -29,7 +30,6 @@ end
 
 namespace '/command' do
 	post '/move_forward' do
-		puts 'moving forward'
 		RoombaApi.forward roomba
 	end
 
@@ -46,7 +46,6 @@ namespace '/command' do
 	end
 
 	post '/halt' do
-		puts 'halting'
 		RoombaApi.halt roomba
 	end
 

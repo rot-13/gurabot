@@ -75,11 +75,11 @@
 	$('.btn-command').click(sendCommandHandler);
 
 	$('.btn-move-command').mousedown(function () {
-		console.log('test');
+		sendCommand($(this).data('move-cmd-id'));
 	});
 
 	$('.btn-move-command').mouseup(function () {
-		console.log('test');
+		sendCommand('halt');
 	});
 
 	$('.text-to-speech button').click(function (e) {

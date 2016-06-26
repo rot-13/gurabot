@@ -25,12 +25,12 @@ function setBattery(val) {
 
 $('.btn-command').click(sendCommandHandler)
 
-$('.btn-move-command').mousedown(() => {
-	console.log('test')
+$('.btn-move-command').mousedown(function() {
+	sendCommand($(this).data('move-cmd-id'))
 })
 
 $('.btn-move-command').mouseup(() => {
-	console.log('test')
+	sendCommand('halt')
 })
 
 $('.text-to-speech button').click((e) => {
