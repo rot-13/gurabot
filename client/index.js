@@ -24,5 +24,9 @@ function setBattery(val) {
 }
 
 $('.btn-command').click(sendCommandHandler)
+$('.text-to-speech button').click((e) => {
+	e.preventDefault()
+	sendCommand('speech', $('.text-to-speech input').val())
+})
 
 setBattery(1) // TODO: fetch periodically.
