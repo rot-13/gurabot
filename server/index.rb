@@ -3,13 +3,10 @@ require 'rumba'
 require 'colorize'
 require "audio-playback"
 require "sinatra/namespace"
-<<<<<<< HEAD
 require "roomba_api"
-=======
 require "espeak"
 
 include ESpeak
->>>>>>> 0a1a9c897b716b34bfa161d6c27699fe97c0a2ee
 
 set :root, '../'
 set :public_folder, 'public'
