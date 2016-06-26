@@ -121,7 +121,7 @@ namespace '/command' do
 			'yesh_action'
 		].each do |gura_sound|
 			post "/#{gura_sound}" do
-				system("aplay", File.absolute_path("./server/wavs/#{gura_sound}.wav")
+				system("aplay", File.absolute_path("./server/wavs/#{gura_sound}.wav"))
 				'ok'
 			end
 		end
