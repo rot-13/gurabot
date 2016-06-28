@@ -3,3 +3,9 @@ node_modules
 tmp
 npm-debug.log
 log
+public/*.ttf
+public/*.eot
+public/*.woff
+public/*.svg
+public/*.woff2
+public/index.js*
