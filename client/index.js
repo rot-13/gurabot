@@ -5,11 +5,11 @@ const $ = require('jquery')
 
 /*
  * Send post command to Roomba
- * @param type - Type of command (/command/<type>).
+ * @param type - Type of command (/<type> route).
  * @param data - Additional JSON data.
  */
 function sendCommand(type, data) {
-	$.post(`/command/${type}`, data)
+	$.post(`/${type}`, data)
 		.fail(() => { alert('whoops, something went wrong') })
 }
 

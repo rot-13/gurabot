@@ -3,8 +3,7 @@ const serve = require('koa-static')
 const bodyParser = require('koa-bodyparser')
 const webpack = require('webpack')
 
-const addSoundRoutes = require('./controllers/sound')
-const addRoombaRoutes = require('./controllers/roomba')
+const addRoutes = require('./controller')
 
 const PORT = 4567
 const app = koa()
@@ -18,8 +17,7 @@ if (process.env !== 'PRODUCTION') {
 
 app.use(serve('./public'))
 app.use(bodyParser())
-addSoundRoutes(app)
-addRoombaRoutes(app)
+addRoutes(app)
 
 app.listen(PORT)
 console.log(`GuraBot listening on port ${PORT}`);

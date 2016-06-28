@@ -5,8 +5,10 @@
 ### Installation
 
 1. Run `npm install`.
+2. __LINUX ONLY:__ - Run `sudo apt-get install festival festvox-kallpc16k`.
+
+### Deployment
 
 ### Development
 
-1. Run `npm start watch` or `webpack --watch`.
-2. Run `npm start` to start the server (served at localhost:4567).
+1. Run `npm start` to start the server (served at localhost:4567).
