@@ -71,4 +71,3 @@ $('.btn-camera').click(() => {
 })
 
 setBattery(1) // TODO: fetch periodically.
-// 'HAni Gura-Bot

@@ -25,9 +25,8 @@ app.listen(PORT)
 console.log(`GuraBot listening on port ${PORT}`);
 
 // TODO: unix festival TTS
-// TODO: webpack hide stuff in middleware
-// TODO: namespace
 // TODO: PM2 deployment (set NODE_ENV=production)
 // TODO: roomba lib
-// TODO: play text to speech with a node lib (say.js)
+// TODO: roomba speeds
+// TODO: check wrecking ball
 // TODO: play sounds with a node lib (play.js) (check if you can play multiple?)
