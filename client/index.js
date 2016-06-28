@@ -1,35 +1,43 @@
 require('index.less')
-
 const $ = require('jquery')
 
+// METHODS ///////////////////////////////////
+
+/*
+ * Send post command to Roomba
+ * @param type - Type of command (/command/<type>).
+ * @param data - Additional JSON data.
+ */
 function sendCommand(type, data) {
 	$.post(`/command/${type}`, data)
 		.fail(() => { alert('whoops, something went wrong') })
 }
 
-function getInfo(type, callback) {
-	$.get(`/info/${type}`)
-		.done(callback)
-		.fail(() => { alert('whoops, something went wrong') })
-}
-
-function sendCommandHandler() {
-	sendCommand($(this).data('cmd-id'))
-}
-
+/*
+ * Sets battery status in the UI
+ * @param val - The normalized battery value (0..1)
+ */
 function setBattery(val) {
 	$('.battery').removeClass('fa-battery-4 fa-battery-3 fa-battery-2 fa-battery-1 fa-battery-0')
 	let classVal = Math.round(val * 4)
 	$('.battery').addClass(`fa-battery-${classVal}`)
 }
 
-$('.btn-command').click(sendCommandHandler)
+// EVENT HANDLERS ///////////////////////////////////
 
+// Registers all `.btn-command` buttons to send their command to the server
+$('.btn-command').click(function() {
+	sendCommand($(this).data('cmd-id'))
+})
+
+// Registers all `.btn-move-command` buttons to send their command to the server
+// and set the `moving` flag to true.
 $('.btn-move-command').on('mousedown touchstart', function() {
 	window.moving = true
 	sendCommand($(this).data('move-cmd-id'))
 })
 
+// Registers all mouseup events to trigger a halt command if the `moving` flag is true`
 $('body').on('mouseup touchend', (e) => {
 	if (window.moving) {
 		window.moving = false
@@ -37,18 +45,13 @@ $('body').on('mouseup touchend', (e) => {
 	}
 })
 
+// Registers the text-to-speech event handler.
 $('.text-to-speech button').click((e) => {
 	e.preventDefault()
 	sendCommand('speech', $('.text-to-speech input').val())
 })
 
-$('button[data-snd=true]').click(() => {
-	$('button[data-snd=true]').addClass('disabled')
-	setTimeout(() => {
-		$('button[data-snd=true]').removeClass('disabled')
-	}, 5000)
-})
-
+// Registers the enable/disable camera button.
 $('.btn-camera').click(() => {
 	if ($('.btn-camera').hasClass('btn-success')) {
 		$('.btn-camera').removeClass('btn-success').addClass('btn-danger')
