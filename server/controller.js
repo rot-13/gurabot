@@ -39,12 +39,22 @@ if (process.env === 'PRODUCTION') {
 	roomba = null
 }
 
-function runCommand(command, data) {
-	if (!roomba) return
-	roomba.send({ cmd: command, data: data })
-}
-
 module.exports = function addRoutes(app) {
+
+	/////// HELPERS /////////////////////////////////////////////////////////
+
+	function runCommand(command, data) {
+		if (!roomba) return
+		roomba.send({ cmd: command, data: data })
+	}
+
+	function playSong(songNumber, notes, durationMultiplier) {
+		const mappedFlattenedNotes = notes.map((note) => {
+			return [note[0], note[1] * durationMultiplier]
+		}).reduce((a, b) => a.concat(b), [])
+		runCommand('SONG', [songNumber, notes.length, ...mappedFlattenedNotes])
+		runCommand('PLAY', [songNumber])
+	}
 
 	/////// MOVEMENT ////////////////////////////////////////////////////////
 
@@ -100,22 +110,7 @@ module.exports = function addRoutes(app) {
 	/////// SONGS ////////////////////////////////////////////////////////
 
 	app.use(route.post('/songs/wrecking_ball', function *() {
-		// TODO
-		// song(roomba,3,[[70, 1],[70, 1],[70, 1],[70, 1],[70, 1],[70, 3],[69, 1],[69, 7], [65, 1], [70, 1], [69, 1], [67, 1], [65, 1], [70, 3],[69, 1],[69, 4]])
-		// roomba.play_song(3)
-		// def song(roomba, song_number, notes)
-		// 		raise RangeError if song_number < 0 || song_number > 15
-		//
-		// 		notes.map! do |i|
-		// 			note, duration = i
-		//
-		// 			# notes can either be a string or the actual ID
-		// 			note = Roomba::NOTES[note] if note.is_a?(String)
-		// 			[note, duration*16]
-		// 		end
-		//
-		// 		roomba.write_chars([Roomba::SONG, song_number, notes.size] + notes.flatten)
-		// end
+		playSong(1, require('./songs/wrecking_ball.json'), 16)
 		this.body = 'ok'
 	}))
 

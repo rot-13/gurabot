@@ -22,9 +22,9 @@ addRoutes(app)
 app.listen(PORT)
 console.log(`GuraBot listening on port ${PORT}`);
 
-// TODO: unix festival TTS
 // TODO: PM2 deployment (set NODE_ENV=production)
-// TODO: roomba lib
 // TODO: roomba speeds
+
 // TODO: check wrecking ball
-// TODO: play sounds with a node lib (play.js) (check if you can play multiple?)
+// TODO: check TTS (festival)
+// TODO: check play sounds
