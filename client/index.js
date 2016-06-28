@@ -48,7 +48,17 @@ $('body').on('mouseup touchend', (e) => {
 // Registers the text-to-speech event handler.
 $('.text-to-speech button').click((e) => {
 	e.preventDefault()
-	sendCommand('speech', $('.text-to-speech input').val())
+	sendCommand('speech', { text: $('.text-to-speech input').val() })
+})
+
+// Handle disabling text-to-speect button when there's no text
+$('.text-to-speech input').keyup(() => {
+	let input = $('.text-to-speech input').val()
+	if (input.length == 0) {
+		$('.text-to-speech button').addClass('disabled')
+	} else {
+		$('.text-to-speech button').removeClass('disabled')
+	}
 })
 
 // Registers the enable/disable camera button.
@@ -61,3 +71,4 @@ $('.btn-camera').click(() => {
 })
 
 setBattery(1) // TODO: fetch periodically.
+// 'HAni Gura-Bot
