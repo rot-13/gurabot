@@ -5,28 +5,10 @@ const Roomba = require('roomba').Roomba
 
 // CONSTS ///////////////////////////////////////////////////////////////
 
-const ROTATE_SPEED = 250
-const MAX_SPEED = 300
+const MAX_RADIUS = 2000
+const MAX_SPEED = 500
 const TTS_VOICE = 'Alex'
-const GURAS = {
-	akol_esh:        [],
-	eich_aya_sofash: [],
-	eifo_erez:       [],
-	eifo_matan:      [],
-	floyd:           [],
-	gartner:         [],
-	gifts_project:   [],
-	kotvim_code:     [],
-	lama_ze_po:      [],
-	ma_hamatzav:     [],
-	ma_kore_po:      [],
-	ma_ratz:         [],
-	mi_isher_et_ze:  [],
-	ole_1:           [],
-	ole_2:           [],
-	sofash_risus:    [],
-	yesh_action:     []
-}
+const GURAS = require('./dances.json')
 
 // ROOMBA INIT ////////////////////////////////////////////////////////
 
@@ -59,22 +41,22 @@ module.exports = function addRoutes(app) {
 	/////// MOVEMENT ////////////////////////////////////////////////////////
 
 	app.use(route.post('/forward', function *() {
-		// TODO
+		runCommand('DRIVE', [300, -32768])
 		this.body = 'ok'
 	}))
 
 	app.use(route.post('/backward', function *() {
-		// TODO
+		runCommand('DRIVE', [300, 32768])
 		this.body = 'ok'
 	}))
 
 	app.use(route.post('/rotate_left', function *() {
-		// TODO
+		runCommand('DRIVE', [300, 1])
 		this.body = 'ok'
 	}))
 
 	app.use(route.post('/rotate_right', function *() {
-		// TODO
+		runCommand('DRIVE', [300, -1])
 		this.body = 'ok'
 	}))
 

@@ -23,8 +23,8 @@ app.listen(PORT)
 console.log(`GuraBot listening on port ${PORT}`);
 
 // TODO: PM2 deployment (set NODE_ENV=production)
-// TODO: roomba speeds
 
+// TODO: check movement
 // TODO: check wrecking ball
 // TODO: check TTS (festival)
 // TODO: check play sounds
