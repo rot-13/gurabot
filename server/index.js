@@ -24,6 +24,7 @@ addRoombaRoutes(app)
 app.listen(PORT)
 console.log(`GuraBot listening on port ${PORT}`);
 
+// TODO: unix festival TTS
 // TODO: webpack hide stuff in middleware
 // TODO: namespace
 // TODO: PM2 deployment (set NODE_ENV=production)

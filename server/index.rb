@@ -84,12 +84,6 @@ namespace '/command' do
 		'ok'
 	end
 
-	post '/speech' do
-		text = request.body.read.to_s
-		Speech.new(text, voice: "en-uk", pitch: 50, speed: 100).speak
-		'ok'
-	end
-
 	post '/dock' do
 		RoombaApi.dock roomba
 		'ok'
