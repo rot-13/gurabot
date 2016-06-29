@@ -1,3 +1,5 @@
+'use strict'
+
 const route = require('koa-route')
 const say = require('say')
 const play = require('play')
@@ -34,7 +36,7 @@ module.exports = function addRoutes(app) {
 		const mappedFlattenedNotes = notes.map((note) => {
 			return [note[0], note[1] * durationMultiplier]
 		}).reduce((a, b) => a.concat(b), [])
-		runCommand('SONG', [songNumber, notes.length, ...mappedFlattenedNotes])
+		runCommand('SONG', [songNumber, notes.length].concat(mappedFlattenedNotes))
 		runCommand('PLAY', [songNumber])
 	}
 

@@ -22,7 +22,7 @@ addRoutes(app)
 app.listen(PORT)
 console.log(`GuraBot listening on port ${PORT}`);
 
-// TODO: PM2 deployment (set NODE_ENV=production)
+// TODO: PM2 deployment (set NODE_ENV=production, npm install --no-optional)
 
 // TODO: check movement
 // TODO: check wrecking ball
