@@ -45,12 +45,10 @@ set :rbenv_roles, :all # default value
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-namespace :deploy do
-
-  after :finished, :cleanup do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-    	run "bundle exec ruby ./server/index.rb"
-    end
+task :restart do
+  on roles(:all) do
+    run "bundle exec ruby ./server/index.rb"
   end
-
 end
+
+after "deploy", "start"
