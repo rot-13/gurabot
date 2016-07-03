@@ -16,7 +16,7 @@ function sendCommand(type, data) {
  */
 function setBattery(val) {
 	$('.battery').removeClass('fa-battery-4 fa-battery-3 fa-battery-2 fa-battery-1 fa-battery-0')
-	let classVal = Math.round(val * 4)
+	var classVal = Math.round(val * 4)
 	$('.battery').addClass('fa-battery-' + classVal)
 }
 
@@ -50,7 +50,7 @@ $('.text-to-speech button').click(function(e) {
 
 // Handle disabling text-to-speect button when there's no text
 $('.text-to-speech input').keyup(function() {
-	let input = $('.text-to-speech input').val()
+	var input = $('.text-to-speech input').val()
 	if (input.length == 0) {
 		$('.text-to-speech button').addClass('disabled')
 	} else {
