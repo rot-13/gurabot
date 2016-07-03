@@ -29,6 +29,7 @@ end
 # helpers
 
 MAX_VELOCITY = 400
+MAX_DIRECT_VELOCITY = 500
 
 def command
 	yield if ROOMBA
@@ -53,7 +54,7 @@ end
 
 namespace '/command' do
 	post '/direct_control' do
-		vector = request.body.read.to_s.split(',').map { |val| (val.to_f * MAX_VELOCITY).floor }
+		vector = request.body.read.to_s.split(',').map { |val| (val.to_f * MAX_DIRECT_VELOCITY).floor }
 		command { ROOMBA.write_chars([Roomba::DRIVE_DIRECT, convert_int(vector[0]), convert_int(vector[1])]) }
 	end
 
