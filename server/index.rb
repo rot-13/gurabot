@@ -73,7 +73,10 @@ namespace '/command' do
 	end
 
 	post '/clean' do
-		command { ROOMBA.write_chars([135]) }
+		command {
+			ROOMBA.write_chars([135])
+			ROOMBA.stop_all_motors
+		}
 	end
 
 	post '/wake' do
