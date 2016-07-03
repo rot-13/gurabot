@@ -7,6 +7,5 @@ gem 'colorize', '0.7.7'
 gem 'capistrano'
 gem "capistrano-bundler"
 gem 'capistrano-rbenv', '~> 2.0'
-gem "audio-playback"
 gem 'sinatra-contrib'
-gem "espeak-ruby", require: "espeak"
+gem 'espeak-ruby', require: 'espeak'

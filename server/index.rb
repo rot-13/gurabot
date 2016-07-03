@@ -1,12 +1,10 @@
-require 'sinatra'
-require 'rumba'
-require 'colorize'
-require "audio-playback"
+require "sinatra"
+require "rumba"
+require "colorize"
 require "sinatra/namespace"
-require_relative "./roomba_api"
 require "espeak"
+require_relative "./roomba_api"
 
-include RoombaApi
 include ESpeak
 
 set :root, '../'
@@ -15,10 +13,13 @@ set :roomba_port, '/dev/ttyUSB0'
 set :roomba_baud_rate, 115200
 set :bind, '0.0.0.0' # listen on all interfaces
 
+# initialization
+
 begin
-	roomba = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
-	roomba.full_mode if roomba
+	ROOMBA = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
+	ROOMBA.full_mode if ROOMBA
 rescue Exception => e
+	ROOMBA = nil
 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
 end
 
@@ -26,77 +27,74 @@ get '/' do
 	File.read(File.join(settings.public_folder, 'index.html'))
 end
 
+# helpers
 
-namespace '/info' do
-	get '/battery' do
-		RoombaApi.battery_percentage(roomba)
-	end
+VELOCITY = 250
+
+def command
+	yield if ROOMBA
+	'ok'
 end
+
+def roomba_song(roomba, song_number, notes, multiplier)
+		raise RangeError if song_number < 0 || song_number > 15
+		notes.map! do |i|
+			note, duration = i
+			note = Roomba::NOTES[note] if note.is_a?(String)
+			[note, duration * multiplier]
+		end
+		roomba.write_chars([Roomba::SONG, song_number, notes.size] + notes.flatten)
+end
+
+# routes
 
 namespace '/command' do
 	post '/move_forward' do
-		RoombaApi.forward roomba
-		'ok'
+		command { ROOMBA.straight(VELOCITY) }
 	end
 
 	post '/move_backward' do
-		RoombaApi.backward roomba
-		'ok'
+		command { ROOMBA.straight(-VELOCITY) }
 	end
 
 	post '/rotate_left' do
-		RoombaApi.left roomba
-		'ok'
+		command { ROOMBA.spin_left(VELOCITY) }
 	end
 
 	post '/rotate_right' do
-		RoombaApi.right roomba
-		'ok'
+		command { ROOMBA.spin_right(VELOCITY) }
 	end
 
 	post '/halt' do
-		RoombaApi.halt roomba
-		'ok'
+		command { ROOMBA.halt }
 	end
 
 	post '/dock' do
-		RoombaApi.dock roomba
-		'ok'
+		command { ROOMBA.write_chars([143]) }
 	end
 
 	post '/clean' do
-		RoombaApi.clean roomba
-		'ok'
+		command { ROOMBA.write_chars([135]) }
 	end
 
 	post '/wake' do
-		RoombaApi.wake roomba
-		'ok'
+		command { ROOMBA.full_mode }
 	end
 
 	post '/sleep' do
-		RoombaApi.go_to_sleep roomba
-		'ok'
+		command { ROOMBA.start }
 	end
 
 	post '/songs/wrecking_ball' do
-		RoombaApi.wrecking_ball roomba
-		'ok'
+		command {
+			roomba_song(ROOMBA, 3, [[70, 1], [70, 1], [70, 1], [70, 1], [70, 1], [70, 3], [69, 1] ,[69, 7], [65, 1], [70, 1], [69, 1], [67, 1], [65, 1], [70, 3], [69, 1], [69, 4]], 16)
+			ROOMB.play_song(3)
+		}
 	end
 
 	post '/speech' do
 		text = request.body.read.to_s
 		Speech.new(text, voice: "en-uk", pitch: 50, speed: 100).speak
-		'ok'
-	end
-
-	post '/dock' do
-		RoombaApi.dock roomba
-		'ok'
-	end
-
-	post '/clean' do
-		RoombaApi.clean roomba
 		'ok'
 	end
 
