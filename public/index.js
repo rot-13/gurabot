@@ -36,8 +36,9 @@ $('.btn-move-command').on('mousedown touchstart', function() {
 
 // Registers all mouseup events to trigger a halt command if the `moving` flag is true`
 $('body').on('mouseup touchend', function(e) {
-	if (window.moving) {
+	if (window.moving || window.movingDirectly) {
 		window.moving = false
+		window.movingDirectly = false
 		sendCommand('halt')
 	}
 })
@@ -79,6 +80,30 @@ $('.btn-clean').click(function() {
 		$('.btn-clean i').addClass('fa-eye').removeClass('fa-hand-paper-o')
 		$('.btn-clean span').text(' Random')
 	}
+})
+
+// Joystick
+var joystickSize = 250
+function handleDirectDrive(event) {
+	x = (event.offsetX / (joystickSize / 2)) - 1
+	y = (event.offsetY / (joystickSize / 2)) - 1
+	window.requestAnimationFrame(function() {
+		$('.joystick').css({
+			left: 100 * (event.offsetX / joystickSize) + '%',
+			top: 100 * (event.offsetY / joystickSize) + '%',
+		})
+	})
+	sendCommand('direct_control', x.toPrecision(2) + ',' + y.toPrecision(2))
+}
+
+$('.direct-control').on('mousedown touchstart', function(event) {
+	window.movingDirectly = true
+	handleDirectDrive(event)
+})
+
+$('.direct-control').on('mousemove touchmove', function(event) {
+	if (!window.movingDirectly) return
+	handleDirectDrive(event)
 })
 
 setBattery(1) // TODO: fetch periodically.

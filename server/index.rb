@@ -48,7 +48,7 @@ end
 # routes
 
 namespace '/command' do
-	post '/move_direct' do
+	post '/direct_control' do
 		vector = request.body.read.to_s.split(',').map { |val| (val.to_f * MAX_VELOCITY).floor }
 		command { ROOMBA.drive_direct(vector[0], vector[1]) }
 	end
