@@ -67,4 +67,18 @@ $('.btn-camera').click(function() {
 	}
 })
 
+// Registers the enable/disable clean button.
+$('.btn-clean').click(function() {
+	if ($('.btn-clean').hasClass('btn-primary')) {
+		$('.btn-clean').removeClass('btn-primary').addClass('btn-danger')
+		$('.btn-clean i').addClass('fa-hand-paper-o').removeClass('fa-eye')
+		$('.btn-clean span').text(' Halt')
+
+	} else {
+		$('.btn-clean').removeClass('btn-danger').addClass('btn-primary')
+		$('.btn-clean i').addClass('fa-eye').removeClass('fa-hand-paper-o')
+		$('.btn-clean span').text(' Random')
+	}
+})
+
 setBattery(1) // TODO: fetch periodically.

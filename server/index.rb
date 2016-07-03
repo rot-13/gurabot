@@ -28,7 +28,7 @@ end
 
 # helpers
 
-VELOCITY = 250
+MAX_VELOCITY = 500
 
 def command
 	yield if ROOMBA
@@ -75,7 +75,6 @@ namespace '/command' do
 	post '/clean' do
 		command {
 			ROOMBA.write_chars([135])
-			ROOMBA.stop_all_motors
 		}
 	end
 
