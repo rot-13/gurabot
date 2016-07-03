@@ -14,6 +14,14 @@ set :bind, '0.0.0.0' # listen on all interfaces
 
 # initialization
 
+# Override bug in rumba library
+class Rumba 
+	def get_sensors(group=100)
+	  raw_data = write_chars_with_read([Rumba::Constants::SENSORS,group])
+	  sensors_bytes_to_packets(raw_data, SENSORS_GROUP_PACKETS[group])
+	end
+end
+
 begin
 	ROOMBA = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
 	ROOMBA.full_mode if ROOMBA
@@ -107,6 +115,11 @@ namespace '/command' do
 		text = request.body.read.to_s
 		Speech.new(text, voice: "en-uk", pitch: 50, speed: 100).speak
 		'ok'
+	end
+
+	post '/sensors' do 
+		data = ROOMBA.get_sensors(3)
+		data
 	end
 
 	namespace '/gura' do
