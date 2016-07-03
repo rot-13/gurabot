@@ -49,7 +49,7 @@ namespace :deploy do
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
-    	run "npm install"
+    	run "bundle exec ruby ./server/index.rb"
     end
   end
 
