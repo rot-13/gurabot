@@ -119,7 +119,7 @@ namespace '/command' do
 
 	post '/sensors' do 
 		data = ROOMBA.get_sensors(3)
-		data
+		data.to_json
 	end
 
 	namespace '/gura' do
