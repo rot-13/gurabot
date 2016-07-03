@@ -7,7 +7,7 @@
  */
 function sendCommand(type, data) {
 	$.post('/command/' + type, data)
-		.fail(() => { alert('whoops, something went wrong') })
+		.fail(function() { alert('whoops, something went wrong') })
 }
 
 /*
@@ -35,7 +35,7 @@ $('.btn-move-command').on('mousedown touchstart', function() {
 })
 
 // Registers all mouseup events to trigger a halt command if the `moving` flag is true`
-$('body').on('mouseup touchend', (e) => {
+$('body').on('mouseup touchend', function(e) {
 	if (window.moving) {
 		window.moving = false
 		sendCommand('halt')
@@ -43,13 +43,13 @@ $('body').on('mouseup touchend', (e) => {
 })
 
 // Registers the text-to-speech event handler.
-$('.text-to-speech button').click((e) => {
+$('.text-to-speech button').click(function(e) {
 	e.preventDefault()
 	sendCommand('speech', $('.text-to-speech input').val())
 })
 
 // Handle disabling text-to-speect button when there's no text
-$('.text-to-speech input').keyup(() => {
+$('.text-to-speech input').keyup(function() {
 	let input = $('.text-to-speech input').val()
 	if (input.length == 0) {
 		$('.text-to-speech button').addClass('disabled')
@@ -59,7 +59,7 @@ $('.text-to-speech input').keyup(() => {
 })
 
 // Registers the enable/disable camera button.
-$('.btn-camera').click(() => {
+$('.btn-camera').click(function() {
 	if ($('.btn-camera').hasClass('btn-success')) {
 		$('.btn-camera').removeClass('btn-success').addClass('btn-danger')
 	} else {
