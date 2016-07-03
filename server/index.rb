@@ -28,7 +28,7 @@ end
 
 # helpers
 
-MAX_VELOCITY = 500
+MAX_VELOCITY = 400
 
 def command
 	yield if ROOMBA
