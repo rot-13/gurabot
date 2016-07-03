@@ -45,13 +45,16 @@ def roomba_song(roomba, song_number, notes, multiplier)
 		roomba.write_chars([Roomba::SONG, song_number, notes.size] + notes.flatten)
 end
 
+def convert_int(int)
+	[int].pack('s>')
+end
+
 # routes
 
 namespace '/command' do
 	post '/direct_control' do
 		vector = request.body.read.to_s.split(',').map { |val| (val.to_f * MAX_VELOCITY).floor }
-		puts vector[0], vector[1]
-		command { ROOMBA.drive_direct(vector[0], vector[1]) }
+		command { ROOMBA.write_chars([Roomba::DRIVE_DIRECT, convert_int(vector[0]), convert_int(vector[1])]) }
 	end
 
 	post '/move_forward' do
