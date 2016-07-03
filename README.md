@@ -5,7 +5,7 @@
 ### Installation
 
 1. Run `npm install`.
-2. __LINUX ONLY:__ - Run `sudo apt-get install festival festvox-kallpc16k`.
+2. __LINUX ONLY:__ Run `sudo apt-get install festival festvox-kallpc16k`.
 
 ### Deployment
 

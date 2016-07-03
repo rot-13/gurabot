@@ -1,3 +1,5 @@
+'use strict'
+
 const koa = require('koa')
 const serve = require('koa-static')
 const bodyParser = require('koa-bodyparser')
@@ -8,7 +10,7 @@ const addRoutes = require('./controller')
 const PORT = 4567
 const app = koa()
 
-if (process.env !== 'PRODUCTION') {
+if (process.env.NODE_ENV !== 'production') {
 	const webpackMiddleware = require('koa-webpack-dev-middleware')
 	const config = require('../webpack.config')
 	config.bail = false
