@@ -49,19 +49,19 @@ end
 
 namespace '/command' do
 	post '/move_forward' do
-		command { ROOMBA.straight(VELOCITY) }
+		command { ROOMBA.straight(MAX_VELOCITY) }
 	end
 
 	post '/move_backward' do
-		command { ROOMBA.straight(-VELOCITY) }
+		command { ROOMBA.straight(-MAX_VELOCITY) }
 	end
 
 	post '/rotate_left' do
-		command { ROOMBA.spin_left(VELOCITY) }
+		command { ROOMBA.spin_left(MAX_VELOCITY) }
 	end
 
 	post '/rotate_right' do
-		command { ROOMBA.spin_right(VELOCITY) }
+		command { ROOMBA.spin_right(MAX_VELOCITY) }
 	end
 
 	post '/halt' do
