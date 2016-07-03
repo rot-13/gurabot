@@ -18,10 +18,12 @@ module.exports = {
 		new webpack.NoErrorsPlugin()
 	],
 	stats: {
-		colors: true
+		colors: false,
+		children: 'none'
 	},
 	resolve: {
 		modulesDirectories: ['.', 'src', 'node_modules'],
 		extensions: ['', '.js']
-	}
+	},
+	bail: true
 }
