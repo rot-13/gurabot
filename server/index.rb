@@ -50,6 +50,7 @@ end
 namespace '/command' do
 	post '/direct_control' do
 		vector = request.body.read.to_s.split(',').map { |val| (val.to_f * MAX_VELOCITY).floor }
+		puts vector[0], vector[1]
 		command { ROOMBA.drive_direct(vector[0], vector[1]) }
 	end
 

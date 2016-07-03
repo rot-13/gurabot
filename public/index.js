@@ -83,6 +83,29 @@ $('.btn-clean').click(function() {
 })
 
 // Joystick
+function throttle(fn, threshhold, scope) {
+  threshhold || (threshhold = 250);
+  var last,
+      deferTimer;
+  return function () {
+    var context = scope || this;
+
+    var now = +new Date,
+        args = arguments;
+    if (last && now < last + threshhold) {
+      // hold on to it
+      clearTimeout(deferTimer);
+      deferTimer = setTimeout(function () {
+        last = now;
+        fn.apply(context, args);
+      }, threshhold);
+    } else {
+      last = now;
+      fn.apply(context, args);
+    }
+  };
+}
+
 var joystickSize = 250
 function handleDirectDrive(event) {
 	x = (event.offsetX / (joystickSize / 2)) - 1
@@ -93,8 +116,14 @@ function handleDirectDrive(event) {
 			top: 100 * (event.offsetY / joystickSize) + '%',
 		})
 	})
+	throttledSend(x, y)
+}
+
+function sendDirectDrive(x, y) {
 	sendCommand('direct_control', x.toPrecision(2) + ',' + y.toPrecision(2))
 }
+
+var throttledSend = throttle(sendDirectDrive, 100)
 
 $('.direct-control').on('mousedown touchstart', function(event) {
 	window.movingDirectly = true
