@@ -47,7 +47,7 @@ set :rbenv_roles, :all # default value
 
 namespace :deploy do
 
-  after :restart, :clear_cache do
+  after :finished do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
     	run "bundle exec ruby ./server/index.rb"
     end
