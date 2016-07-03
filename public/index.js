@@ -120,6 +120,7 @@ function handleDirectDrive(event) {
 }
 
 function sendDirectDrive(x, y) {
+	console.log(x,y)
 	sendCommand('direct_control', x.toPrecision(2) + ',' + y.toPrecision(2))
 }
 
