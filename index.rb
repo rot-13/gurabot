@@ -36,8 +36,7 @@ end
 
 # helpers
 
-MAX_VELOCITY = 400
-MAX_DIRECT_VELOCITY = 600
+MAX_VELOCITY = 500
 
 def command
 	yield if ROOMBA
@@ -65,8 +64,8 @@ namespace '/command' do
 		vector = request.body.read.to_s.split(',').map(&:to_f)
 		vel = Math.sqrt(vector[0] ** 2) + (vector[1] ** 2)
 		dir = vector[1]
-		right = [(dir * 2) + 1, 1].min * vel * MAX_DIRECT_VELOCITY
-		left = [(dir * -2) + 1, 1].min * vel * MAX_DIRECT_VELOCITY
+		right = [(dir * 2) + 1, 1].min * vel * MAX_VELOCITY
+		left = [(dir * -2) + 1, 1].min * vel * MAX_VELOCITY
 		command { ROOMBA.write_chars([Roomba::DRIVE_DIRECT, convert_int(left), convert_int(right)]) }
 	end
 
