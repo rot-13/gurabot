@@ -15,7 +15,7 @@ set :bind, '0.0.0.0' # listen on all interfaces
 # initialization
 
 # Override bug in rumba library
-class Rumba 
+class Rumba
 	def get_sensors(group=100)
 	  raw_data = write_chars_with_read([Rumba::Constants::SENSORS,group])
 	  sensors_bytes_to_packets(raw_data, SENSORS_GROUP_PACKETS[group])
@@ -37,7 +37,7 @@ end
 # helpers
 
 MAX_VELOCITY = 400
-MAX_DIRECT_VELOCITY = 500
+MAX_DIRECT_VELOCITY = 600
 
 def command
 	yield if ROOMBA
@@ -65,8 +65,8 @@ namespace '/command' do
 		vector = request.body.read.to_s.split(',').map(&:to_f)
 		vel = vector[0]
 		dir = vector[1]
-		left = [(dir * 2) + 1, 1].min * vel * MAX_DIRECT_VELOCITY
-		right = [(dir * -2) + 1, 1].min * vel * MAX_DIRECT_VELOCITY
+		right = [(dir * 2) + 1, 1].min * vel * MAX_DIRECT_VELOCITY
+		left = [(dir * -2) + 1, 1].min * vel * MAX_DIRECT_VELOCITY
 		command { ROOMBA.write_chars([Roomba::DRIVE_DIRECT, convert_int(left), convert_int(right)]) }
 	end
 
@@ -121,7 +121,7 @@ namespace '/command' do
 		'ok'
 	end
 
-	post '/sensors' do 
+	post '/sensors' do
 		data = ROOMBA.get_sensors(3)
 		data.to_json
 	end
