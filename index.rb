@@ -6,7 +6,7 @@ require "espeak"
 
 include ESpeak
 
-set :root, '../'
+set :root, './'
 set :public_folder, 'public'
 set :roomba_port, '/dev/ttyUSB0'
 set :roomba_baud_rate, 115200
