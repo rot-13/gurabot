@@ -108,8 +108,8 @@ function handleDirectDrive(event) {
 	throttledSendDirectDrive(x, y)
 }
 
-function sendDirectDrive(dir, vel) {
-	sendCommand('direct_control', vel.toPrecision(2) + ',' + dir.toPrecision(2))
+function sendDirectDrive(x, y) {
+	sendCommand('direct_control', x.toPrecision(2) + ',' + y.toPrecision(2))
 }
 
 var throttledSendDirectDrive = throttle(sendDirectDrive, 100)

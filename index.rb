@@ -63,7 +63,7 @@ end
 namespace '/command' do
 	post '/direct_control' do
 		vector = request.body.read.to_s.split(',').map(&:to_f)
-		vel = vector[0]
+		vel = Math.sqrt(vector[0] ** 2) + (vector[1] ** 2)
 		dir = vector[1]
 		right = [(dir * 2) + 1, 1].min * vel * MAX_DIRECT_VELOCITY
 		left = [(dir * -2) + 1, 1].min * vel * MAX_DIRECT_VELOCITY
@@ -147,7 +147,7 @@ namespace '/command' do
 			'yesh_action'
 		].each do |gura_sound|
 			post "/#{gura_sound}" do
-				system("aplay", File.absolute_path("./server/wavs/#{gura_sound}.wav"))
+				system("aplay", File.absolute_path("./wavs/#{gura_sound}.wav"))
 				'ok'
 			end
 		end
