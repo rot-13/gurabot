@@ -138,6 +138,7 @@ sendCommand('sensors', null, function(error, result){
 	if (error) {
 		// Do something?
 	} else {
-		setBattery(result['battery_charge'] / result['battery_capacity']) 
+		resultJson = JSON.parse(result)
+		setBattery(resultJson['battery_charge'] / resultJson['battery_capacity']) 
 	}
 })
