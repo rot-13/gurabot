@@ -94,12 +94,15 @@ function throttle(fn, threshhold, scope) {
 
 var joystickSize = 250
 function handleDirectDrive(event) {
-	x = (event.offsetX / (joystickSize / 2)) - 1
-	y = 1 - (event.offsetY / (joystickSize / 2))
+	console.log($('.direct-control').position().left)
+	rawX = event.offsetX || (event.targetTouches[0].pageX - $('.direct-control').offset().left)
+	rawY = event.offsetY || (event.targetTouches[0].pageY - $('.direct-control').offset().top)
+	x = (rawX / (joystickSize / 2)) - 1
+	y = 1 - (rawY / (joystickSize / 2))
 	window.requestAnimationFrame(function() {
 		$('.joystick').css({
-			left: 100 * (event.offsetX / joystickSize) + '%',
-			top: 100 * (event.offsetY / joystickSize) + '%',
+			left: 100 * (rawX / joystickSize) + '%',
+			top: 100 * (rawY / joystickSize) + '%',
 		})
 	})
 	throttledSendDirectDrive(x, y)
@@ -112,11 +115,14 @@ function sendDirectDrive(dir, vel) {
 var throttledSendDirectDrive = throttle(sendDirectDrive, 100)
 
 $('.direct-control').on('mousedown touchstart', function(event) {
+	event.preventDefault()
+	console.log(event)
 	window.movingDirectly = true
 	handleDirectDrive(event)
 })
 
 $('.direct-control').on('mousemove touchmove', function(event) {
+	event.preventDefault()
 	if (!window.movingDirectly) return
 	handleDirectDrive(event)
 })
