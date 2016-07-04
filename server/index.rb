@@ -54,8 +54,12 @@ end
 
 namespace '/command' do
 	post '/direct_control' do
-		vector = request.body.read.to_s.split(',').map { |val| (val.to_f * MAX_DIRECT_VELOCITY).floor }
-		command { ROOMBA.write_chars([Roomba::DRIVE_DIRECT, convert_int(vector[0]), convert_int(vector[1])]) }
+		vector = request.body.read.to_s.split(',').map(&:to_f)
+		vel = vector[0]
+		dir = vector[1]
+		left = [(dir * 2) + 1, 1].min * vel * MAX_DIRECT_VELOCITY
+		right = [(dir * -2) + 1, 1].min * vel * MAX_DIRECT_VELOCITY
+		command { ROOMBA.write_chars([Roomba::DRIVE_DIRECT, convert_int(left), convert_int(right)]) }
 	end
 
 	post '/move_forward' do
