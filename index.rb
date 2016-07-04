@@ -6,7 +6,7 @@ require "espeak"
 
 include ESpeak
 
-set :root, '../'
+set :root, './'
 set :public_folder, 'public'
 set :roomba_port, '/dev/ttyUSB0'
 set :roomba_baud_rate, 115200
@@ -15,7 +15,7 @@ set :bind, '0.0.0.0' # listen on all interfaces
 # initialization
 
 # Override bug in rumba library
-class Rumba 
+class Rumba
 	def get_sensors(group=100)
 	  raw_data = write_chars_with_read([Rumba::Constants::SENSORS,group])
 	  sensors_bytes_to_packets(raw_data, SENSORS_GROUP_PACKETS[group])
@@ -36,8 +36,7 @@ end
 
 # helpers
 
-MAX_VELOCITY = 400
-MAX_DIRECT_VELOCITY = 500
+MAX_VELOCITY = 500
 
 def command
 	yield if ROOMBA
@@ -62,8 +61,12 @@ end
 
 namespace '/command' do
 	post '/direct_control' do
-		vector = request.body.read.to_s.split(',').map { |val| (val.to_f * MAX_DIRECT_VELOCITY).floor }
-		command { ROOMBA.write_chars([Roomba::DRIVE_DIRECT, convert_int(vector[0]), convert_int(vector[1])]) }
+		vector = request.body.read.to_s.split(',').map(&:to_f)
+		dir = vector[0]
+		vel = vector[1]
+		right = [(dir * 2) + 1, 1].min * vel * MAX_VELOCITY
+		left = [(dir * -2) + 1, 1].min * vel * MAX_VELOCITY
+		command { ROOMBA.write_chars([Roomba::DRIVE_DIRECT, convert_int(left), convert_int(right)]) }
 	end
 
 	post '/move_forward' do
@@ -117,7 +120,7 @@ namespace '/command' do
 		'ok'
 	end
 
-	post '/sensors' do 
+	post '/sensors' do
 		data = ROOMBA.get_sensors(3)
 		data.to_json
 	end
@@ -143,7 +146,7 @@ namespace '/command' do
 			'yesh_action'
 		].each do |gura_sound|
 			post "/#{gura_sound}" do
-				system("aplay", File.absolute_path("./server/wavs/#{gura_sound}.wav"))
+				system("aplay", File.absolute_path("./wavs/#{gura_sound}.wav"))
 				'ok'
 			end
 		end

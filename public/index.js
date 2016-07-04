@@ -74,20 +74,6 @@ $('.btn-camera').click(function() {
 	}
 })
 
-// Registers the enable/disable clean button.
-$('.btn-clean').click(function() {
-	if ($('.btn-clean').hasClass('btn-primary')) {
-		$('.btn-clean').removeClass('btn-primary').addClass('btn-danger')
-		$('.btn-clean i').addClass('fa-hand-paper-o').removeClass('fa-eye')
-		$('.btn-clean span').text(' Halt')
-
-	} else {
-		$('.btn-clean').removeClass('btn-danger').addClass('btn-primary')
-		$('.btn-clean i').addClass('fa-eye').removeClass('fa-hand-paper-o')
-		$('.btn-clean span').text(' Random')
-	}
-})
-
 // Joystick
 function throttle(fn, threshhold, scope) {
   threshhold || (threshhold = 250);
@@ -114,30 +100,35 @@ function throttle(fn, threshhold, scope) {
 
 var joystickSize = 250
 function handleDirectDrive(event) {
-	x = (event.offsetX / (joystickSize / 2)) - 1
-	y = (event.offsetY / (joystickSize / 2)) - 1
+	console.log($('.direct-control').position().left)
+	rawX = event.offsetX || (event.targetTouches[0].pageX - $('.direct-control').offset().left)
+	rawY = event.offsetY || (event.targetTouches[0].pageY - $('.direct-control').offset().top)
+	x = (rawX / (joystickSize / 2)) - 1
+	y = 1 - (rawY / (joystickSize / 2))
 	window.requestAnimationFrame(function() {
 		$('.joystick').css({
-			left: 100 * (event.offsetX / joystickSize) + '%',
-			top: 100 * (event.offsetY / joystickSize) + '%',
+			left: 100 * (rawX / joystickSize) + '%',
+			top: 100 * (rawY / joystickSize) + '%',
 		})
 	})
-	throttledSend(x, y)
+	throttledSendDirectDrive(x, y)
 }
 
 function sendDirectDrive(x, y) {
-	console.log(x,y)
 	sendCommand('direct_control', x.toPrecision(2) + ',' + y.toPrecision(2))
 }
 
-var throttledSend = throttle(sendDirectDrive, 100)
+var throttledSendDirectDrive = throttle(sendDirectDrive, 100)
 
 $('.direct-control').on('mousedown touchstart', function(event) {
+	event.preventDefault()
+	console.log(event)
 	window.movingDirectly = true
 	handleDirectDrive(event)
 })
 
 $('.direct-control').on('mousemove touchmove', function(event) {
+	event.preventDefault()
 	if (!window.movingDirectly) return
 	handleDirectDrive(event)
 })
