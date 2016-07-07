@@ -44,14 +44,3 @@ set :rbenv_roles, :all # default value
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
-
-after :deploy, :restart_server
-
-task :restart_server do
-	on roles(:app) do
-		within "#{current_path}" do
-			execute(:bundle, :exec, :ruby, './index.rb')
-		end
-		# run "fuser -k 4567/tcp && cd '#{current_path}'; bundle exec ruby ./index.rb"
-	end
-end

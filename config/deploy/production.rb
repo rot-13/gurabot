@@ -9,3 +9,14 @@
 server "roomba.local", :user => "pi", :roles => %{web app}, ssh_options: { password: 'raspberry' }
 set :branch, "master"
 set :ssh_options, { :forward_agent => true }
+
+after :deploy, :restart_server
+
+task :restart_server do
+	on roles(:app) do
+		within "#{current_path}" do
+			execute("fuser -k 4567/tcp")
+			execute("bundle exec ruby ./index.rb")
+		end
+	end
+end
