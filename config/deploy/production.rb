@@ -13,7 +13,10 @@ set :ssh_options, { :forward_agent => true }
 after :deploy, "deploy:restart_server"
 
 namespace :deploy do
-	task :restart_server, :roles => :app do
-		run "fuser -k 4567/tcp && cd '#{current_path}'; bundle exec ruby ./index.rb"
+
+	task :restart_server do
+		on primary roles :app do
+			run "fuser -k 4567/tcp && cd '#{current_path}'; bundle exec ruby ./index.rb"
+		end
 	end
 end
