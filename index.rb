@@ -3,6 +3,7 @@ require "rumba"
 require "colorize"
 require "sinatra/namespace"
 require "espeak"
+require "json"
 
 include ESpeak
 

@@ -5,10 +5,16 @@
  * @param type - Type of command (/<type> route).
  * @param data - Additional JSON data.
  */
-function sendCommand(type, data) {
-	$.post('/command/' + type, data)
-		.fail(function() { alert('whoops, something went wrong') })
+function sendCommand(type, data, callback) {
+	$.post('/command/' + type, data, function(result){
+		// success
+		if (callback) { callback(null, result) }
+	}).fail(function() { 
+		if (callback) { callback("server error") }
+		alert('whoops, something went wrong') 
+	})
 }
+
 
 /*
  * Sets battery status in the UI
@@ -127,4 +133,12 @@ $('.direct-control').on('mousemove touchmove', function(event) {
 	handleDirectDrive(event)
 })
 
-setBattery(1) // TODO: fetch periodically.
+// TODO: fetch periodically.
+sendCommand('sensors', null, function(error, result){
+	if (error) {
+		// Do something?
+	} else {
+		resultJson = JSON.parse(result)
+		setBattery(resultJson['battery_charge'] / resultJson['battery_capacity']) 
+	}
+})
