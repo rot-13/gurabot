@@ -144,6 +144,10 @@ namespace '/command' do
 			'ole_1',
 			'ole_2',
 			'sofash_risus',
+			'ani_ehod',
+			'eifo_ochlim',
+			'keshet',
+			'zomag',
 			'yesh_action'
 		].each do |gura_sound|
 			post "/#{gura_sound}" do
