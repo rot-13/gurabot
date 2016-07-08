@@ -9,9 +9,9 @@ function sendCommand(type, data, callback) {
 	$.post('/command/' + type, data, function(result){
 		// success
 		if (callback) { callback(null, result) }
-	}).fail(function() { 
+	}).fail(function() {
 		if (callback) { callback("server error") }
-		alert('whoops, something went wrong') 
+		alert('whoops, something went wrong')
 	})
 }
 
@@ -105,6 +105,7 @@ function handleDirectDrive(event) {
 	rawY = event.offsetY || (event.targetTouches[0].pageY - $('.direct-control').offset().top)
 	x = (rawX / (joystickSize / 2)) - 1
 	y = 1 - (rawY / (joystickSize / 2))
+	console.log(100 * (rawX / joystickSize))
 	window.requestAnimationFrame(function() {
 		$('.joystick').css({
 			left: 100 * (rawX / joystickSize) + '%',
@@ -139,6 +140,6 @@ sendCommand('sensors', null, function(error, result){
 		// Do something?
 	} else {
 		resultJson = JSON.parse(result)
-		setBattery(resultJson['battery_charge'] / resultJson['battery_capacity']) 
+		setBattery(resultJson['battery_charge'] / resultJson['battery_capacity'])
 	}
 })

@@ -44,6 +44,10 @@ def command
 	'ok'
 end
 
+def command_with_return_val
+	yield if ROOMBA
+end
+
 def roomba_song(roomba, song_number, notes, multiplier)
 		raise RangeError if song_number < 0 || song_number > 15
 		notes.map! do |i|
@@ -95,9 +99,7 @@ namespace '/command' do
 	end
 
 	post '/clean' do
-		command {
-			ROOMBA.write_chars([135])
-		}
+		command { ROOMBA.write_chars([135]) }
 	end
 
 	post '/wake' do
@@ -122,8 +124,10 @@ namespace '/command' do
 	end
 
 	post '/sensors' do
-		data = ROOMBA.get_sensors(3)
-		data.to_json
+		command_with_return_val {
+			data = ROOMBA.get_sensors(3)
+			data.to_json
+		}
 	end
 
 	namespace '/gura' do
