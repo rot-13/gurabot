@@ -26,6 +26,39 @@ function setBattery(val) {
 	$('.battery').addClass('fa-battery-' + classVal)
 }
 
+/*
+ * Returns a throttled function call.
+ * @param fn - The function to throttle.
+ * @param threshold - How many times per threshold it can be called.
+ */
+function throttle(fn, threshhold) {
+	var last, deferTimer
+	return function() {
+		var now = +new Date(),
+		args = arguments
+		if (last && now < last + threshhold) {
+			clearTimeout(deferTimer)
+			deferTimer = setTimeout(function() {
+				last = now
+				fn.apply(this, args)
+			}, threshhold)
+		} else {
+			last = now
+			fn.apply(this, args)
+		}
+	}
+}
+
+// PERIODIC DATA ////////////////////////////////////
+
+// TODO: fetch periodically.
+sendCommand('sensors', null, function(error, result) {
+	try {
+		resultJson = JSON.parse(result)
+		setBattery(resultJson['battery_charge'] / resultJson['battery_capacity'])
+	} catch (e) { /* do nothing */ }
+})
+
 // EVENT HANDLERS ///////////////////////////////////
 
 // Registers all `.btn-command` buttons to send their command to the server
@@ -50,7 +83,7 @@ $('body').on('mouseup touchend', function(e) {
 	if (window.moving || window.movingDirectly) {
 		window.moving = false
 		window.movingDirectly = false
-		setJoystick(0.5, 0.5)
+		setJoystickPosition(0.5, 0.5)
 		sendCommand('halt')
 	}
 })
@@ -71,27 +104,9 @@ $('.text-to-speech input').keyup(function() {
 	}
 })
 
-// Direct control
-function throttle(fn, threshhold, scope) {
-	var last, deferTimer
-	return function() {
-		var context = scope || this;
-		var now = +new Date(),
-		args = arguments
-		if (last && now < last + threshhold) {
-			clearTimeout(deferTimer)
-			deferTimer = setTimeout(function() {
-				last = now
-				fn.apply(context, args)
-			}, threshhold)
-		} else {
-			last = now
-			fn.apply(context, args)
-		}
-	}
-}
+// DIRECT CONTROL ///////////////////////////////////
 
-var joystickSize = 250
+var controlSize = $('.direct-control').width()
 function handleDirectDrive(event) {
 	if (event.offsetX != null && event.offsetY != null) {
 		offsetX = event.pageX
@@ -100,20 +115,18 @@ function handleDirectDrive(event) {
 		offsetX = event.targetTouches[0].pageX
 		offsetY = event.targetTouches[0].pageY
 	}
-	rawX = Math.max(0, Math.min(joystickSize, offsetX - $('.direct-control').offset().left))
-	rawY = Math.max(0, Math.min(joystickSize, offsetY - $('.direct-control').offset().top))
-	setJoystick(rawX / joystickSize, rawY / joystickSize)
-	serverX = (rawX / (joystickSize / 2)) - 1
-	serverY = 1 - (rawY / (joystickSize / 2))
+	controlOffset = $('.direct-control').offset()
+	rawX = Math.max(0, Math.min(controlSize, offsetX - controlOffset.left))
+	rawY = Math.max(0, Math.min(controlSize, offsetY - controlOffset.top))
+	setJoystickPosition(rawX / controlSize, rawY / controlSize)
+	serverX = (rawX / (controlSize / 2)) - 1
+	serverY = 1 - (rawY / (controlSize / 2))
 	throttledSendDirectDrive(serverX, serverY)
 }
 
-function setJoystick(x, y) {
+function setJoystickPosition(x, y) {
 	window.requestAnimationFrame(function() {
-		$('.joystick').css({
-			left: 100 * x + '%',
-			top: 100 * y + '%',
-		})
+		$('.joystick').css({left: 100 * x + '%', top: 100 * y + '%'})
 	})
 }
 
@@ -133,14 +146,4 @@ $('body').on('mousemove touchmove', function(event) {
 	event.preventDefault()
 	if (!window.movingDirectly) return
 	handleDirectDrive(event)
-})
-
-// TODO: fetch periodically.
-sendCommand('sensors', null, function(error, result) {
-	try {
-		resultJson = JSON.parse(result)
-		setBattery(resultJson['battery_charge'] / resultJson['battery_capacity'])
-	} catch (e) {
-		// do nothing.
-	}
 })
