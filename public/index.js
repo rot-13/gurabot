@@ -33,6 +33,11 @@ $('.btn-command').click(function() {
 	sendCommand($(this).data('cmd-id'))
 })
 
+// Registers all `.btn-snd` buttons to send their command to the server
+$('.btn-snd').click(function() {
+	sendCommand('sound', $(this).data('snd-id'))
+})
+
 // Registers all `.btn-move-command` buttons to send their command to the server
 // and set the `moving` flag to true.
 $('.btn-move-command').on('mousedown touchstart', function() {
