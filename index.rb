@@ -148,6 +148,9 @@ namespace '/command' do
 			'eifo_ochlim',
 			'keshet',
 			'zomag',
+			'wow',
+			'haxball',
+			'gurabot',
 			'yesh_action'
 		].each do |gura_sound|
 			post "/#{gura_sound}" do
