@@ -121,11 +121,15 @@ function handleDirectDrive(event) {
 
 	var normalizedOffsetX = (offsetX / (controlSize * 0.5)) - 1
 	var normalizedOffsetY = 1 - (offsetY / (controlSize * 0.5))
-
-	setJoystickPosition(normalizedOffsetX, normalizedOffsetY)
+	var angle = Math.atan2(normalizedOffsetY, normalizedOffsetX)
+	var maxX = Math.abs(Math.cos(angle))
+	var maxY = Math.abs(Math.sin(angle))
+	normalizedOffsetX = Math.min(maxX, Math.max(-maxX, normalizedOffsetX))
+	normalizedOffsetY = Math.min(maxY, Math.max(-maxY, normalizedOffsetY))
 	var velocity = Math.sqrt((normalizedOffsetX * normalizedOffsetX) + (normalizedOffsetY * normalizedOffsetY))
-	var angle = Math.atan2(normalizedOffsetY, normalizedOffsetX) - (Math.PI / 2)
-	throttledSendDirectDrive(velocity, angle)
+	
+	setJoystickPosition(normalizedOffsetX, normalizedOffsetY)
+	throttledSendDirectDrive(velocity, angle - (Math.PI / 2))
 }
 
 function setJoystickPosition(x, y) {
