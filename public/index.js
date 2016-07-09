@@ -6,8 +6,7 @@
  * @param data - Additional JSON data.
  */
 function sendCommand(type, data, callback) {
-	$.post('/command/' + type, data, function(result){
-		// success
+	$.post('/command/' + type, data, function(result) {
 		if (callback) { callback(null, result) }
 	}).fail(function() {
 		if (callback) { callback("server error") }
@@ -83,7 +82,7 @@ $('body').on('mouseup touchend', function(e) {
 	if (window.moving || window.movingDirectly) {
 		window.moving = false
 		window.movingDirectly = false
-		setJoystickPosition(0.5, 0.5)
+		setJoystickPosition(0, 0)
 		sendCommand('halt')
 	}
 })
@@ -108,6 +107,8 @@ $('.text-to-speech input').keyup(function() {
 
 var controlSize = $('.direct-control').width()
 function handleDirectDrive(event) {
+	var offsetX, offsetY
+	var controlOffset = $('.direct-control').offset()
 	if (event.offsetX != null && event.offsetY != null) {
 		offsetX = event.pageX
 		offsetY = event.pageY
@@ -115,16 +116,21 @@ function handleDirectDrive(event) {
 		offsetX = event.targetTouches[0].pageX
 		offsetY = event.targetTouches[0].pageY
 	}
-	controlOffset = $('.direct-control').offset()
-	rawX = Math.max(0, Math.min(controlSize, offsetX - controlOffset.left))
-	rawY = Math.max(0, Math.min(controlSize, offsetY - controlOffset.top))
-	setJoystickPosition(rawX / controlSize, rawY / controlSize)
-	serverX = (rawX / (controlSize / 2)) - 1
-	serverY = 1 - (rawY / (controlSize / 2))
-	throttledSendDirectDrive(serverX, serverY)
+	offsetX -= controlOffset.left
+	offsetY -= controlOffset.top
+
+	var normalizedOffsetX = (offsetX / (controlSize * 0.5)) - 1
+	var normalizedOffsetY = 1 - (offsetY / (controlSize * 0.5))
+
+	setJoystickPosition(normalizedOffsetX, normalizedOffsetY)
+	var velocity = Math.sqrt((normalizedOffsetX * normalizedOffsetX) + (normalizedOffsetY * normalizedOffsetY))
+	var angle = Math.atan2(normalizedOffsetY, normalizedOffsetX) - (Math.PI / 2)
+	throttledSendDirectDrive(velocity, angle)
 }
 
 function setJoystickPosition(x, y) {
+	x = (x + 1) / 2
+	y = 1 - ((y + 1) / 2)
 	window.requestAnimationFrame(function() {
 		$('.joystick').css({left: 100 * x + '%', top: 100 * y + '%'})
 	})

@@ -11,6 +11,7 @@ body {
 	margin: 0 auto;
 	position: relative;
 	cursor: crosshair;
+	border-radius: 100%;
 }
 
 .joystick {
@@ -23,6 +24,7 @@ body {
 	top: 50%;
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
+	z-index: 10;
 }
 
 .container-main {
