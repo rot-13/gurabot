@@ -49,10 +49,11 @@ end
 namespace "/command" do
 	post "/direct_control" do
 		vector = request.body.read.to_s.split(",").map(&:to_f)
-		dir = vector[0]
-		vel = vector[1]
-		right = [(dir * 2) + 1, 1].min * vel * MAX_VELOCITY
-		left = [(dir * -2) + 1, 1].min * vel * MAX_VELOCITY
+		vel = vector[0]
+		ang = vector[1]
+		right = [(ang * 2) + 1, 1].min * vel * MAX_VELOCITY
+		left = [(ang * -2) + 1, 1].min * vel * MAX_VELOCITY
+		puts ang
 		command { @roomba.drive_direct(left, right) }
 	end
 
