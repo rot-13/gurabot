@@ -45,15 +45,16 @@ def convert_int(int)
 end
 
 def convert_ang_to_left_wheel(ang, vel)
-	ang = ang % (Math.PI * 2)
-	if 0 <= ang < Math.PI * 0.5
+	ang = ang % (Math::PI * 2)
+	if 0 <= ang && ang < Math::PI * 0.5
 		mult = Math.cos(ang * 2)
-	elsif Math.PI * 0.5 <= ang < Math.PI
+	elsif Math::PI * 0.5 <= ang && ang < Math::PI
 		mult = -1
-	elsif Math.PI <= ang < Math.PI * 1.5
-		mult = Math.cos((2 * ang) - Math.PI)
+	elsif Math::PI <= ang && ang < Math::PI * 1.5
+		mult = Math.cos((2 * ang) - Math::PI)
 	else
 		mult = 1
+	end
 	mult * vel * MAX_VELOCITY
 end
 
@@ -65,7 +66,7 @@ namespace "/command" do
 		vel = vector[0]
 		ang = vector[1]
 		left = convert_ang_to_left_wheel(ang, vel)
-		right = convert_ang_to_left_wheel(ang - (Math.PI * 0.5))
+		right = convert_ang_to_left_wheel(ang - (Math::PI * 0.5), vel)
 		command { ROOMBA.drive_direct(left, right) }
 	end
 
