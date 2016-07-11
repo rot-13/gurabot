@@ -16,10 +16,10 @@ set :bind, "0.0.0.0" # listen on all interfaces
 # initialization
 
 begin
-	@roomba = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
-	@roomba.full_mode if @roomba
+	ROOMBA = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
+	ROOMBA.full_mode if ROOMBA
 rescue Exception => e
-	@roomba = nil
+	ROOMBA = nil
 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
 end
 
@@ -32,12 +32,12 @@ end
 MAX_VELOCITY = 500
 
 def command
-	yield if @roomba
+	yield if ROOMBA
 	"ok"
 end
 
 def command_with_return_val
-	yield if @roomba
+	yield if ROOMBA
 end
 
 def convert_int(int)
@@ -53,52 +53,52 @@ namespace "/command" do
 		vel = vector[1]
 		right = [(dir * 2) + 1, 1].min * vel * MAX_VELOCITY
 		left = [(dir * -2) + 1, 1].min * vel * MAX_VELOCITY
-		command { @roomba.drive_direct(left, right) }
+		command { ROOMBA.drive_direct(left, right) }
 	end
 
 	post "/move_forward" do
-		command { @roomba.straight(MAX_VELOCITY) }
+		command { ROOMBA.straight(MAX_VELOCITY) }
 	end
 
 	post "/move_backward" do
-		command { @roomba.straight(-MAX_VELOCITY) }
+		command { ROOMBA.straight(-MAX_VELOCITY) }
 	end
 
 	post "/rotate_left" do
-		command { @roomba.spin_left(MAX_VELOCITY) }
+		command { ROOMBA.spin_left(MAX_VELOCITY) }
 	end
 
 	post "/rotate_right" do
-		command { @roomba.spin_right(MAX_VELOCITY) }
+		command { ROOMBA.spin_right(MAX_VELOCITY) }
 	end
 
 	post "/halt" do
 		command {
-			@roomba.halt
-			@roomba.stop_all_motors
+			ROOMBA.halt
+			ROOMBA.stop_all_motors
 		}
 	end
 
 	post "/dock" do
-		command { @roomba.dock }
+		command { ROOMBA.dock }
 	end
 
 	post "/clean" do
-		command { @roomba.clean }
+		command { ROOMBA.clean }
 	end
 
 	post "/wake" do
-		command { @roomba.full_mode }
+		command { ROOMBA.full_mode }
 	end
 
 	post "/sleep" do
-		command { @roomba.start }
+		command { ROOMBA.start }
 	end
 
 	post "/songs/wrecking_ball" do
 		command {
-			@roomba.define_song(3, [[70, 1], [70, 1], [70, 1], [70, 1], [70, 1], [70, 3], [69, 1] ,[69, 7], [65, 1], [70, 1], [69, 1], [67, 1], [65, 1], [70, 3], [69, 1], [69, 4]], 16)
-			@roomba.play_song(3)
+			ROOMBA.define_song(3, [[70, 1], [70, 1], [70, 1], [70, 1], [70, 1], [70, 3], [69, 1] ,[69, 7], [65, 1], [70, 1], [69, 1], [67, 1], [65, 1], [70, 3], [69, 1], [69, 4]], 16)
+			ROOMBA.play_song(3)
 		}
 	end
 
@@ -110,7 +110,7 @@ namespace "/command" do
 
 	post "/sensors" do
 		command_with_return_val {
-			data = @roomba.get_sensors(3)
+			data = ROOMBA.get_sensors(3)
 			data.to_json
 		}
 	end
