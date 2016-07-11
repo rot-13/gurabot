@@ -16,10 +16,10 @@ set :bind, "0.0.0.0" # listen on all interfaces
 # initialization
 
 begin
-	@roomba = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
-	@roomba.full_mode if @roomba
+	ROOMBA = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
+	ROOMBA.full_mode if ROOMBA
 rescue Exception => e
-	@roomba = nil
+	ROOMBA = nil
 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
 end
 
@@ -32,16 +32,29 @@ end
 MAX_VELOCITY = 500
 
 def command
-	yield if @roomba
+	yield if ROOMBA
 	"ok"
 end
 
 def command_with_return_val
-	yield if @roomba
+	yield if ROOMBA
 end
 
 def convert_int(int)
 	[int].pack("s>")
+end
+
+def convert_ang_to_left_wheel(ang, vel)
+	ang = ang % (Math.PI * 2)
+	if 0 <= ang < Math.PI * 0.5
+		mult = Math.cos(ang * 2)
+	elsif Math.PI * 0.5 <= ang < Math.PI
+		mult = -1
+	elsif Math.PI <= ang < Math.PI * 1.5
+		mult = Math.cos((2 * ang) - Math.PI)
+	else
+		mult = 1
+	mult * vel * MAX_VELOCITY
 end
 
 # routes
@@ -51,55 +64,54 @@ namespace "/command" do
 		vector = request.body.read.to_s.split(",").map(&:to_f)
 		vel = vector[0]
 		ang = vector[1]
-		right = [(ang * 2) + 1, 1].min * vel * MAX_VELOCITY
-		left = [(ang * -2) + 1, 1].min * vel * MAX_VELOCITY
-		puts ang
-		command { @roomba.drive_direct(left, right) }
+		left = convert_ang_to_left_wheel(ang, vel)
+		right = convert_ang_to_left_wheel(ang - (Math.PI * 0.5))
+		command { ROOMBA.drive_direct(left, right) }
 	end
 
 	post "/move_forward" do
-		command { @roomba.straight(MAX_VELOCITY) }
+		command { ROOMBA.straight(MAX_VELOCITY) }
 	end
 
 	post "/move_backward" do
-		command { @roomba.straight(-MAX_VELOCITY) }
+		command { ROOMBA.straight(-MAX_VELOCITY) }
 	end
 
 	post "/rotate_left" do
-		command { @roomba.spin_left(MAX_VELOCITY) }
+		command { ROOMBA.spin_left(MAX_VELOCITY) }
 	end
 
 	post "/rotate_right" do
-		command { @roomba.spin_right(MAX_VELOCITY) }
+		command { ROOMBA.spin_right(MAX_VELOCITY) }
 	end
 
 	post "/halt" do
 		command {
-			@roomba.halt
-			@roomba.stop_all_motors
+			ROOMBA.halt
+			ROOMBA.stop_all_motors
 		}
 	end
 
 	post "/dock" do
-		command { @roomba.dock }
+		command { ROOMBA.dock }
 	end
 
 	post "/clean" do
-		command { @roomba.clean }
+		command { ROOMBA.clean }
 	end
 
 	post "/wake" do
-		command { @roomba.full_mode }
+		command { ROOMBA.full_mode }
 	end
 
 	post "/sleep" do
-		command { @roomba.start }
+		command { ROOMBA.start }
 	end
 
 	post "/songs/wrecking_ball" do
 		command {
-			@roomba.define_song(3, [[70, 1], [70, 1], [70, 1], [70, 1], [70, 1], [70, 3], [69, 1] ,[69, 7], [65, 1], [70, 1], [69, 1], [67, 1], [65, 1], [70, 3], [69, 1], [69, 4]], 16)
-			@roomba.play_song(3)
+			ROOMBA.define_song(3, [[70, 1], [70, 1], [70, 1], [70, 1], [70, 1], [70, 3], [69, 1] ,[69, 7], [65, 1], [70, 1], [69, 1], [67, 1], [65, 1], [70, 3], [69, 1], [69, 4]], 16)
+			ROOMBA.play_song(3)
 		}
 	end
 
@@ -111,7 +123,7 @@ namespace "/command" do
 
 	post "/sensors" do
 		command_with_return_val {
-			data = @roomba.get_sensors(3)
+			data = ROOMBA.get_sensors(3)
 			data.to_json
 		}
 	end

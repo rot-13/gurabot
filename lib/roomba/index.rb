@@ -80,8 +80,8 @@ class Roomba
   end
 
   def drive(velocity, radius)
-    raise RangeError if velocity < -500 || velocity > 500
-    raise RangeError if (radius < -2000 || radius > 2000) && radius != 0xFFFF
+		velocity = [500, [velocity, -500].max].min
+		radius = [2000, [radius, -2000].max].min
 
     velocity = convert_int(velocity)
     radius   = convert_int(radius)
@@ -89,8 +89,8 @@ class Roomba
   end
 
   def drive_direct(left, right)
-    raise RangeError if left  < -500 || left  > 500
-    raise RangeError if right < -500 || right > 500
+    left = [500, [left, -500].max].min
+    right = [500, [right, -500].max].min
 
     left  = convert_int(left)
     right = convert_int(right)

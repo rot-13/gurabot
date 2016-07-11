@@ -140,8 +140,9 @@ function setJoystickPosition(x, y) {
 	})
 }
 
-function sendDirectDrive(x, y) {
-	sendCommand('direct_control', x.toPrecision(2) + ',' + y.toPrecision(2))
+function sendDirectDrive(vel, ang) {
+	ang = ang < 0 ? (2 * Math.PI) + ang : ang
+	sendCommand('direct_control', vel.toPrecision(3) + ',' + ang.toPrecision(3))
 }
 
 var throttledSendDirectDrive = throttle(sendDirectDrive, 100)
