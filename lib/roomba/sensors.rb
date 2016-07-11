@@ -272,7 +272,7 @@ class Roomba
     # Get sensors by group
     # Default group 100 = all packets
 		def get_sensors(group=100)
-		  raw_data = write_chars_with_read([Rumba::Constants::SENSORS,group])
+		  raw_data = write_chars_with_read([Roomba::Constants::SENSORS,group])
 		  sensors_bytes_to_packets(raw_data, SENSORS_GROUP_PACKETS[group])
 		end
 
