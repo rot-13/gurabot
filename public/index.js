@@ -50,13 +50,17 @@ function throttle(fn, threshhold) {
 
 // PERIODIC DATA ////////////////////////////////////
 
-// TODO: fetch periodically.
-sendCommand('sensors', null, function(error, result) {
-	try {
-		resultJson = JSON.parse(result)
-		setBattery(resultJson['battery_charge'] / resultJson['battery_capacity'])
-	} catch (e) { /* do nothing */ }
-})
+function fetchAndSetBattery() {
+	sendCommand('sensors', null, function(error, result) {
+		try {
+			resultJson = JSON.parse(result)
+			setBattery(resultJson['battery_charge'] / resultJson['battery_capacity'])
+		} catch (e) { /* do nothing */ }
+	})
+}
+
+fetchAndSetBattery()
+setInterval(fetchAndSetBattery, 10000)
 
 // EVENT HANDLERS ///////////////////////////////////
 
