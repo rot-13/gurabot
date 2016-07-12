@@ -50,7 +50,7 @@ function throttle(fn, threshhold) {
 
 // PERIODIC DATA ////////////////////////////////////
 
-function fetchAndSetBattery() {
+function fetchAndSetSensors() {
 	sendCommand('sensors', null, function(error, result) {
 		try {
 			resultJson = JSON.parse(result)
@@ -59,8 +59,8 @@ function fetchAndSetBattery() {
 	})
 }
 
-fetchAndSetBattery()
-setInterval(fetchAndSetBattery, 10000)
+fetchAndSetSensors()
+setInterval(fetchAndSetSensors, 1000)
 
 // EVENT HANDLERS ///////////////////////////////////
 

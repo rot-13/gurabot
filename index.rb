@@ -124,7 +124,7 @@ namespace "/command" do
 
 	post "/sensors" do
 		command_with_return_val {
-			data = ROOMBA.get_sensors(3)
+			data = ROOMBA.get_sensors(0)
 			data.to_json
 		}
 	end
