@@ -83,7 +83,9 @@ $('body').on('mouseup touchend', function(e) {
 		window.moving = false
 		window.movingDirectly = false
 		setJoystickPosition(0, 0)
-		sendCommand('halt')
+		setTimeout(function() {
+			sendCommand('halt')
+		}, 100)
 	}
 })
 
@@ -154,7 +156,7 @@ $('.direct-control').on('mousedown touchstart', function(event) {
 })
 
 $('body').on('mousemove touchmove', function(event) {
-	event.preventDefault()
 	if (!window.movingDirectly) return
+	event.preventDefault()
 	handleDirectDrive(event)
 })
