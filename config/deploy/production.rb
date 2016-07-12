@@ -16,7 +16,7 @@ task :restart_server do
 	on release_roles :all do
 		within "#{current_path}" do
 			execute("fuser -k 4567/tcp", raise_on_non_zero_exit: false)
-			execute(:bundle, :exec, :ruby, './index.rb')
+			execute(:nohup, :bundle, :exec, :ruby, './index.rb', '>/dev/null', '2>&1', '&')
 		end
 	end
 end
