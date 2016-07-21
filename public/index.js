@@ -8,9 +8,6 @@
 function sendCommand(type, data, callback) {
 	$.post('/command/' + type, data, function(result) {
 		if (callback) { callback(null, result) }
-	}).fail(function() {
-		if (callback) { callback("server error") }
-		alert('whoops, something went wrong')
 	})
 }
 
@@ -54,7 +51,9 @@ function fetchAndSetSensors() {
 	sendCommand('sensors', null, function(error, result) {
 		try {
 			resultJson = JSON.parse(result)
-			setBattery(resultJson['battery_charge'] / resultJson['battery_capacity'])
+			if (resultJson && resultJson['battery_charge'] && resultJson['battery_capacity']) {
+				setBattery(resultJson['battery_charge'] / resultJson['battery_capacity'])
+			}
 		} catch (e) { /* do nothing */ }
 	})
 }
