@@ -1,0 +1,18 @@
+{
+	"eifo_erez": [
+		"sfx",
+		"left_200",
+		"wait_500",
+		"right_200",
+		"wait_500",
+		"left_200",
+		"wait_500",
+		"halt"
+	],
+	"undock": [
+		"backwards_500",
+		"wait_1000",
+		"left_500",
+		"wait_1000"
+	]
+}

@@ -26,6 +26,8 @@ get "/" do
 	File.read(File.join(settings.public_folder, "index.html"))
 end
 
+BEHAVIORS = JSON.parse(File.read('./behaviors.json'))
+
 # helpers
 
 MAX_VELOCITY = 500
@@ -71,6 +73,32 @@ def convert_ang_to_left_wheel(ang, vel)
 	mult * vel * MAX_VELOCITY
 end
 
+def play_behavior(name)
+	behavior = BEHAVIORS[name]
+	behavior.each do |command|
+		instruction = command.split('_')
+		instruction_name = instruction[0]
+		instruction_prop = instruction[1]
+
+		case instruction_name
+		when "sfx"
+			play(name)
+		when "left"
+			ROOMBA.spin_left(instruction_prop)
+		when "right"
+			ROOMBA.spin_right(instruction_prop)
+		when "forward"
+			ROOMBA.straight(instruction_prop)
+		when "backward"
+			ROOMBA.straight(-instruction_prop)
+		when "wait"
+			sleep instruction_prop
+		when "halt"
+			ROOMBA.halt
+		end
+	end
+end
+
 # routes
 
 namespace "/command" do
@@ -108,6 +136,13 @@ namespace "/command" do
 
 	post "/dock" do
 		command { ROOMBA.dock }
+	end
+
+	post "/undock" do
+		command {
+			ROOMBA.full_mode
+			play_behavior(undock)
+		}
 	end
 
 	post "/wake" do
