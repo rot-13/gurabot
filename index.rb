@@ -131,7 +131,7 @@ namespace "/command" do
 
 	post "/sensors" do
 		command_with_return_val {
-			SENSORS[:data].to_json
+			STATE[:sensors].to_json
 		}
 	end
 
