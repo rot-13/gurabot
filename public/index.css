@@ -1,3 +1,8 @@
+@keyframes fade {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
 html, body {
 	overflow-x: hidden;
 }
@@ -74,6 +79,10 @@ body {
 	font-size: 1.25rem;
 	vertical-align: middle;
 	margin-right: 0.9375rem;
+}
+
+.charging {
+	animation: fade 3s infinite;
 }
 
 .btn-sfx {
