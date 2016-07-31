@@ -53,6 +53,7 @@ def play(sound)
 end
 
 def put_me_down_check
+	puts SENSORS[:data]
 	if SENSORS[:data][:wheel_drop_right] && SENSORS[:data][:wheel_drop_left]
 		play(PUT_ME_DOWN_SOUNDS.sample)
 	end
