@@ -53,12 +53,12 @@ def play(sound)
 end
 
 def put_me_down_check
-	bumps = SENSORS[:data]["bumps_and_wheel_drops"]
+	bumps = SENSORS[:data][:bumps_and_wheel_drops]
 	puts bumps
-	puts bumps && bumps["wheel_drop_right"] && bumps["wheel_drop_left"]
-	if bumps && bumps["wheel_drop_right"] && bumps["wheel_drop_left"]
+	if bumps && bumps[:wheel_drop_right] && bumps[:wheel_drop_left]
 		puts 'playing'
 		play(PUT_ME_DOWN_SOUNDS.sample)
+		puts 'played'
 	end
 end
 
@@ -142,7 +142,7 @@ namespace "/command" do
 
 	post "/sensors" do
 		command_with_return_val {
-			SENSORS[:data]
+			SENSORS[:data].to_json
 		}
 	end
 
@@ -153,12 +153,12 @@ namespace "/command" do
 	end
 end
 
-if ROOMBA
+# if ROOMBA
 	Thread.new do
 		loop do
 			sleep SENSORS_INTERVAL
-			SENSORS[:data] = ROOMBA.get_sensors(0).to_json
+			SENSORS[:data] = ROOMBA.get_sensors(0)
 			put_me_down_check
 		end
 	end
-end
+# end
