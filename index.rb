@@ -18,8 +18,10 @@ set :bind, "0.0.0.0" # listen on all interfaces
 begin
 	ROOMBA = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
 	ROOMBA.full_mode if ROOMBA
+	SENSORS = {}
 rescue Exception => e
 	ROOMBA = nil
+	SENSORS = nil
 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
 end
 
@@ -30,6 +32,7 @@ end
 # helpers
 
 MAX_VELOCITY = 500
+SENSORS_INTERVAL = 2500
 
 def command
 	yield if ROOMBA
@@ -124,8 +127,7 @@ namespace "/command" do
 
 	post "/sensors" do
 		command_with_return_val {
-			data = ROOMBA.get_sensors(0)
-			data.to_json
+			SENSORS.to_json
 		}
 	end
 
@@ -133,5 +135,14 @@ namespace "/command" do
 		sound = request.body.read.to_s
 		system("aplay", File.absolute_path("./wavs/#{sound}.wav"))
 		"ok"
+	end
+end
+
+if ROOMBA
+	Thread.new do
+		loop do
+			sleep SENSORS_INTERVAL
+			SENSORS = ROOMBA.get_sensors(0)
+		end
 	end
 end
