@@ -1,10 +1,11 @@
 {
 	"MIXIN_search":    ["sfx", "left_200_750", "halt_750", "right_200_750", "halt_750", "left_200_750", "halt"],
+	"MIXIN_rot_360":   ["sfx", "left_1000", "halt"],
 
 	"ole_1":           ["sfx", "left_500_25", "right_500_25", "left_500_25", "right_500_25", "halt"],
 	"ole_2":           ["sfx", "forward_500_25", "backward_500_25", "forward_500_25", "backward_500_25", "halt"],
 	"eifo_ochlim":     ["sfx"],
-	"gurabot":         ["sfx"],
+	"gurabot":         "MIXIN_rot_360",
 	"eifo_matan":      "MIXIN_search",
 	"gartner":         "MIXIN_search",
 	"eifo_erez":       "MIXIN_search",
@@ -23,5 +24,5 @@
 	"yesh_action":     ["sfx"],
 	"wow":             ["sfx", "backward_100_2000", "halt"],
 
-	"undock":          ["backward_500", "wait_1000", "left_500", "wait_1000", "halt"]
+	"undock":          ["backward_500_1000", "left_500_1000", "halt"]
 }
