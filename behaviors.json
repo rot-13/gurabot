@@ -1,18 +1,24 @@
 {
-	"eifo_erez": [
-		"sfx",
-		"left_200",
-		"wait_500",
-		"right_200",
-		"wait_500",
-		"left_200",
-		"wait_500",
-		"halt"
-	],
-	"undock": [
-		"backwards_500",
-		"wait_1000",
-		"left_500",
-		"wait_1000"
-	]
+	"ole_1":           ["sfx"],
+	"ole_2":           ["sfx"],
+	"eifo_ochlim":     ["sfx"],
+	"gurabot":         ["sfx"],
+	"eifo_matan":      ["sfx"],
+	"gartner":         ["sfx"],
+	"eifo_erez":       ["sfx", "left_200", "wait_500", "right_200", "wait_500", "left_200", "wait_500", "halt"],
+	"keshet":          ["sfx"],
+	"ani_ehod":        ["sfx"],
+	"sofash_risus":    ["sfx"],
+	"eich_aya_sofash": ["sfx"],
+	"kotvim_code":     ["sfx"],
+	"ma_ratz":         ["sfx"],
+	"ma_kore_po":      ["sfx"],
+	"lama_ze_po":      ["sfx"],
+	"ma_hamatzav":     ["sfx"],
+	"akol_esh":        ["sfx"],
+	"mi_isher_et_ze":  ["sfx"],
+	"zomag":           ["sfx"],
+	"yesh_action":     ["sfx"],
+	"wow":             ["sfx"],
+	"undock":          ["backwards_500", "wait_1000", "left_500", "wait_1000"]
 }

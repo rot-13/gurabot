@@ -92,7 +92,7 @@ def play_behavior(name)
 		when "backward"
 			ROOMBA.straight(-instruction_prop)
 		when "wait"
-			sleep instruction_prop
+			sleep (instruction_prop / 1000)
 		when "halt"
 			ROOMBA.halt
 		end
@@ -168,7 +168,7 @@ namespace "/command" do
 
 	post "/sound" do
 		sound = request.body.read.to_s
-		play(sound)
+		play_behavior(sound)
 		"ok"
 	end
 end
