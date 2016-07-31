@@ -32,7 +32,8 @@ end
 # helpers
 
 MAX_VELOCITY = 500
-SENSORS_INTERVAL = 1
+SENSORS_INTERVAL = 3
+PUT_ME_DOWN_SOUNDS = ["torido_oti_0", "torido_oti_1", "torido_oti_2"]
 
 def command
 	yield if ROOMBA
@@ -45,6 +46,16 @@ end
 
 def convert_int(int)
 	[int].pack("s>")
+end
+
+def play(sound)
+	system("aplay", File.absolute_path("./wavs/#{sound}.wav"))
+end
+
+def put_me_down_check
+	if SENSORS[:data][:wheel_drop_right] && SENSORS[:data][:wheel_drop_left]
+		play(PUT_ME_DOWN_SOUNDS.sample)
+	end
 end
 
 def convert_ang_to_left_wheel(ang, vel)
@@ -127,13 +138,13 @@ namespace "/command" do
 
 	post "/sensors" do
 		command_with_return_val {
-			SENSORS[:data].to_json
+			SENSORS[:data]
 		}
 	end
 
 	post "/sound" do
 		sound = request.body.read.to_s
-		system("aplay", File.absolute_path("./wavs/#{sound}.wav"))
+		play(sound)
 		"ok"
 	end
 end
@@ -142,7 +153,8 @@ if ROOMBA
 	Thread.new do
 		loop do
 			sleep SENSORS_INTERVAL
-			SENSORS[:data] = ROOMBA.get_sensors(0)
+			SENSORS[:data] = ROOMBA.get_sensors(0).to_json
+			put_me_down_check
 		end
 	end
 end
