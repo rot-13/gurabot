@@ -80,11 +80,11 @@ def play_behavior(name)
 		instruction = command.split('_')
 		instruction_name = instruction[0]
 		instruction_prop = instruction[1].to_i
+		wait_for = instruction[2]
 		case instruction_name
 		when "sfx"
-			Thread.new do
-				play(name)
-			end
+			Thread.new { play(name) }
+			wait_for = instruction_prop
 		when "left"
 			ROOMBA.spin_left(instruction_prop)
 		when "right"
@@ -97,7 +97,9 @@ def play_behavior(name)
 			sleep (instruction_prop.to_f / 1000)
 		when "halt"
 			ROOMBA.halt
+			wait_for = instruction_prop
 		end
+		sleep (wait_for.to_f / 1000) if wait_for
 	end
 end
 

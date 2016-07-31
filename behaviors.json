@@ -1,5 +1,5 @@
 {
-	"MIXIN_search":    ["sfx", "left_200", "wait_500", "right_200", "wait_500", "left_200", "wait_500", "halt"],
+	"MIXIN_search":    ["sfx", "left_200_750", "halt_750", "right_200_750", "halt_750", "left_200_750", "halt"],
 
 	"ole_1":           ["sfx"],
 	"ole_2":           ["sfx"],
