@@ -1,11 +1,13 @@
 {
+	"MIXIN_search":    ["sfx", "left_200", "wait_500", "right_200", "wait_500", "left_200", "wait_500", "halt"],
+
 	"ole_1":           ["sfx"],
 	"ole_2":           ["sfx"],
 	"eifo_ochlim":     ["sfx"],
 	"gurabot":         ["sfx"],
 	"eifo_matan":      ["sfx"],
 	"gartner":         ["sfx"],
-	"eifo_erez":       ["sfx", "left_200", "wait_500", "right_200", "wait_500", "left_200", "wait_500", "halt"],
+	"eifo_erez":       "MIXIN_search",
 	"keshet":          ["sfx"],
 	"ani_ehod":        ["sfx"],
 	"sofash_risus":    ["sfx"],
@@ -21,5 +23,5 @@
 	"yesh_action":     ["sfx"],
 	"wow":             ["sfx"],
 
-	"undock":          ["backward_500", "wait_1000", "left_480", "wait_1000", "halt"]
+	"undock":          ["backward_500", "wait_1000", "left_490", "wait_1000", "halt"]
 }

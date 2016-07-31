@@ -75,6 +75,7 @@ end
 
 def play_behavior(name)
 	behavior = BEHAVIORS[name]
+	behavior = BEHAVIORS[behavior] unless behavior.kind_of?(Array)
 	behavior.each do |command|
 		instruction = command.split('_')
 		instruction_name = instruction[0]
