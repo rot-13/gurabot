@@ -20,5 +20,5 @@
 	"zomag":           ["sfx"],
 	"yesh_action":     ["sfx"],
 	"wow":             ["sfx"],
-	"undock":          ["backwards_500", "wait_1000", "left_500", "wait_1000"]
+	"undock":          ["backwards_500", "wait_1000", "left_500", "wait_1000", "halt"]
 }
