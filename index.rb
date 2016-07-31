@@ -78,7 +78,7 @@ def play_behavior(name)
 	behavior.each do |command|
 		instruction = command.split('_')
 		instruction_name = instruction[0]
-		instruction_prop = instruction[1]
+		instruction_prop = instruction[1].to_i
 
 		case instruction_name
 		when "sfx"
