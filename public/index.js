@@ -59,7 +59,7 @@ function fetchAndSetSensors() {
 }
 
 fetchAndSetSensors()
-setInterval(fetchAndSetSensors, 5000)
+setInterval(fetchAndSetSensors, 10000)
 
 // EVENT HANDLERS ///////////////////////////////////
 
