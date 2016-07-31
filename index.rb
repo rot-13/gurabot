@@ -18,10 +18,10 @@ set :bind, "0.0.0.0" # listen on all interfaces
 begin
 	ROOMBA = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
 	ROOMBA.full_mode if ROOMBA
-	SENSORS = {data:{}}
+	STATE = {sensors:{}, put_me_down: 0}
 rescue Exception => e
 	ROOMBA = nil
-	SENSORS = {}
+	STATE = {}
 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
 end
 
@@ -32,8 +32,8 @@ end
 # helpers
 
 MAX_VELOCITY = 500
-SENSORS_INTERVAL = 3
-PUT_ME_DOWN_SOUNDS = ["torido_oti_0", "torido_oti_1", "torido_oti_2"]
+SENSORS_INTERVAL = 2
+PUT_ME_DOWN_SOUND = "torido_oti_"
 
 def command
 	yield if ROOMBA
@@ -53,12 +53,10 @@ def play(sound)
 end
 
 def put_me_down_check
-	bumps = SENSORS[:data][:bumps_and_wheel_drops]
-	puts bumps
+	bumps = STATE[:sensors][:bumps_and_wheel_drops]
 	if bumps && bumps[:wheel_drop_right] && bumps[:wheel_drop_left]
-		puts 'playing'
-		play(PUT_ME_DOWN_SOUNDS.sample)
-		puts 'played'
+		play(PUT_ME_DOWN_SOUND + (STATE[:put_me_down] % 3))
+		STATE[:put_me_down] += 1
 	end
 end
 
@@ -157,7 +155,7 @@ end
 	Thread.new do
 		loop do
 			sleep SENSORS_INTERVAL
-			SENSORS[:data] = ROOMBA.get_sensors(0)
+			STATE[:sensors] = ROOMBA.get_sensors(0)
 			put_me_down_check
 		end
 	end
