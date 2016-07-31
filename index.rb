@@ -141,7 +141,7 @@ namespace "/command" do
 	post "/undock" do
 		command {
 			ROOMBA.full_mode
-			play_behavior(undock)
+			play_behavior("undock")
 		}
 	end
 
