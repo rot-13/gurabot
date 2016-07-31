@@ -6,7 +6,12 @@ body {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	user-select: none;
-	background-color: #eee;
+	background:
+linear-gradient(45deg, #F3F3F3 45px, transparent 45px)64px 64px,
+linear-gradient(45deg, #F3F3F3 45px, transparent 45px,transparent 91px, #FBFBFB 91px, #FBFBFB 135px, transparent 135px),
+linear-gradient(-45deg, #F3F3F3 23px, transparent 23px, transparent 68px,#F3F3F3 68px,#F3F3F3 113px,transparent 113px,transparent 158px,#F3F3F3 158px);
+background-color:#FBFBFB;
+background-size: 128px 128px;
 	position: relative
 }
 
