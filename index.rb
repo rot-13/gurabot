@@ -82,7 +82,9 @@ def play_behavior(name)
 		instruction_prop = instruction[1].to_i
 		case instruction_name
 		when "sfx"
-			play(name)
+			Thread.new do
+				play(name)
+			end
 		when "left"
 			ROOMBA.spin_left(instruction_prop)
 		when "right"
