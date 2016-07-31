@@ -108,7 +108,11 @@ $('.text-to-speech input').keyup(function() {
 
 // DIRECT CONTROL ///////////////////////////////////
 
-var controlSize = $('.direct-control').width()
+var controlSize = $('.direct-control').width();
+$(window).resize(function() {
+	controlSize = $('.direct-control').width();
+});
+
 function handleDirectDrive(event) {
 	var offsetX, offsetY
 	var controlOffset = $('.direct-control').offset()
