@@ -4,8 +4,6 @@ require "colorize"
 require "json"
 require "./lib/roomba"
 
-include ESpeak
-
 set :root, "./"
 set :public_folder, "public"
 set :roomba_port, "/dev/ttyUSB0"
@@ -70,7 +68,7 @@ def convert_ang_to_left_wheel(ang, vel)
 	else
 		mult = 1
 	end
-	mult * vel * MAX_VELOCITY
+	mult * mult * vel * MAX_VELOCITY
 end
 
 # routes
@@ -144,7 +142,7 @@ namespace "/command" do
 	end
 end
 
-# if ROOMBA
+if ROOMBA
 	Thread.new do
 		loop do
 			sleep SENSORS_INTERVAL
@@ -152,4 +150,4 @@ end
 			put_me_down_check
 		end
 	end
-# end
+end
