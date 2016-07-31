@@ -36,7 +36,7 @@
 			<div class="row">
 
 				<!-- Left panel -->
-				<div class="col-sm-12">
+				<div class="col-sm-12" style="position:relative;">
 
 					<!-- Direct Movement control -->
 					<div class="row">
@@ -49,49 +49,45 @@
 						</div>
 					</div>
 
-					<hr/>
-
 					<!-- Indirect movement -->
-					<div class="row">
-						<div class="col-sm-12">
-							<button title="Dock" type="button" data-cmd-id="dock" class="btn btn-clean btn-warning btn-command">
-								<i class="fa fa-anchor" aria-hidden="true"></i>
-								<span class="hidden-xs-down">&nbsp;Dock</span>
-							</button>
-							<button title="Halt" type="button" data-cmd-id="halt" class="btn btn-danger btn-command">
-								<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
-								<span class="hidden-xs-down">&nbsp;Halt</span>
-							</button>
-						</div>
+					<div class="move-btn-container">
+						<button title="Dock" type="button" data-cmd-id="dock" class="pull-left btn btn-clean btn-warning btn-command">
+							<i class="fa fa-anchor" aria-hidden="true"></i>
+						</button>
+						<button title="Halt" type="button" data-cmd-id="halt" class="pull-right btn btn-danger btn-command">
+							<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+						</button>
 					</div>
 
 					<hr/>
 
 					<!-- SFX -->
-					<div class="sfx-row">
-						<button type="button" class="btn btn-primary btn-command" data-cmd-id="songs/wrecking_ball">Wrecking Ball&nbsp;<i class="fa fa-music" aria-hidden="true"></i></button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="ani_ehod">Ehod</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="zomag">z0mag</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="keshet">Keshet?</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="eifo_ochlim">Eifo ochlim?</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="gurabot">Gurabot</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="ole_1">Olé 1</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="ole_2">Olé 2</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="eifo_matan">Matan?</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="gartner">Gartner?</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="eifo_erez">Erez?</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="sofash_risus">Risus</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="eich_aya_sofash">Eich ha'sofash?</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="kotvim_code">Code?</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="ma_ratz">Ma ratz?</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="ma_kore_po">Ma kore po?</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="lama_ze_po">Lama ze po?</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="ma_hamatzav">Ma ha'matzav?</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="akol_esh">Akol esh?</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="mi_isher_et_ze">Mi isher et ze?</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="yesh_action">Yesh action?</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="haxball">Haxball</button>
-						<button type="button" class="btn btn-info btn-snd" data-snd-id="wow">Wow, ma ze?</button>
+					<div class="sfx-row-container">
+						<div class="sfx-row">
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="ani_ehod">Ehod</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="ole_1">Olé 1</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="ole_2">Olé 2</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="zomag">z0mag</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="keshet">Keshet?</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="eifo_ochlim">Eifo ochlim?</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="gurabot">Gurabot</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="eifo_matan">Matan?</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="gartner">Gartner?</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="eifo_erez">Erez?</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="sofash_risus">Risus</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="eich_aya_sofash">Eich ha'sofash?</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="kotvim_code">Code?</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="ma_ratz">Ma ratz?</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="ma_kore_po">Ma kore po?</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="lama_ze_po">Lama ze po?</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="ma_hamatzav">Ma ha'matzav?</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="akol_esh">Akol esh?</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="mi_isher_et_ze">Mi isher et ze?</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="yesh_action">Yesh action?</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="haxball">Haxball</button>
+							<button type="button" class="btn btn-info btn-snd" data-snd-id="wow">Wow, ma ze?</button>
+							<button type="button" class="btn btn-primary btn-command" data-cmd-id="songs/wrecking_ball">Wrecking Ball&nbsp;<i class="fa fa-music" aria-hidden="true"></i></button>
+						</div>
 					</div>
 				</div>
 			</div>
