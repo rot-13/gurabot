@@ -18,10 +18,10 @@ set :bind, "0.0.0.0" # listen on all interfaces
 begin
 	ROOMBA = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
 	ROOMBA.full_mode if ROOMBA
-	SENSORS = {}
+	SENSORS = {data:{}}
 rescue Exception => e
 	ROOMBA = nil
-	SENSORS = nil
+	SENSORS = {}
 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
 end
 
@@ -127,7 +127,7 @@ namespace "/command" do
 
 	post "/sensors" do
 		command_with_return_val {
-			SENSORS.to_json
+			SENSORS.data.to_json
 		}
 	end
 
@@ -142,7 +142,7 @@ if ROOMBA
 	Thread.new do
 		loop do
 			sleep SENSORS_INTERVAL
-			SENSORS = ROOMBA.get_sensors(0)
+			SENSORS.data = ROOMBA.get_sensors(0)
 		end
 	end
 end

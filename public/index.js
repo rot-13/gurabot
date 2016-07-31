@@ -81,7 +81,8 @@ $('.btn-move-command').on('mousedown touchstart', function() {
 })
 
 // Registers all mouseup events to trigger a halt command if the `moving` flag is true`
-$('body').on('mouseup touchend', function(e) {
+// Also on tab blur.
+function halt() {
 	if (window.moving || window.movingDirectly) {
 		window.moving = false
 		window.movingDirectly = false
@@ -90,7 +91,10 @@ $('body').on('mouseup touchend', function(e) {
 			sendCommand('halt')
 		}, 100)
 	}
-})
+}
+
+$('body').on('mouseup touchend', halt)
+$(window).blur(halt);
 
 // Registers the text-to-speech event handler.
 $('.text-to-speech button').click(function(e) {
