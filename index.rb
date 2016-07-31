@@ -54,7 +54,10 @@ end
 
 def put_me_down_check
 	bumps = SENSORS[:data]["bumps_and_wheel_drops"]
+	puts bumps
+	puts bumps && bumps["wheel_drop_right"] && bumps["wheel_drop_left"]
 	if bumps && bumps["wheel_drop_right"] && bumps["wheel_drop_left"]
+		puts 'playing'
 		play(PUT_ME_DOWN_SOUNDS.sample)
 	end
 end
