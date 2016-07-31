@@ -127,7 +127,7 @@ namespace "/command" do
 
 	post "/sensors" do
 		command_with_return_val {
-			SENSORS.data.to_json
+			SENSORS[:data].to_json
 		}
 	end
 
@@ -142,7 +142,7 @@ if ROOMBA
 	Thread.new do
 		loop do
 			sleep SENSORS_INTERVAL
-			SENSORS.data = ROOMBA.get_sensors(0)
+			SENSORS[:data] = ROOMBA.get_sensors(0)
 		end
 	end
 end
