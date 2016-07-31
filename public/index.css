@@ -71,13 +71,8 @@ body {
 	margin-right: 0.9375rem;
 }
 
-.sfx-row {
-	width: 100%;
-	-webkit-overflow-scrolling: touch;
-	overflow-scrolling: touch;
-	white-space: nowrap;
-	overflow-x: scroll;
-	margin: 0;
-	display: inline-block;
-	padding: 20px 1rem 10px 1rem;
+.btn-sfx {
+	margin-bottom: 4px;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
 }
