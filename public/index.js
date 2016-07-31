@@ -13,13 +13,21 @@ function sendCommand(type, data, callback) {
 
 
 /*
- * Sets battery status in the UI
+ * Sets battery and charging status in the UI
  * @param val - The normalized battery value (0..1)
  */
 function setBattery(val) {
 	$('.battery').removeClass('fa-battery-4 fa-battery-3 fa-battery-2 fa-battery-1 fa-battery-0')
 	var classVal = Math.round(val * 4)
 	$('.battery').addClass('fa-battery-' + classVal)
+}
+
+function setCharging(val) {
+	if (val) {
+		$('.charging').show()
+	} else {
+		$('.charging').hide()
+	}
 }
 
 /*
@@ -54,12 +62,17 @@ function fetchAndSetSensors() {
 			if (resultJson && resultJson['battery_charge'] && resultJson['battery_capacity']) {
 				setBattery(resultJson['battery_charge'] / resultJson['battery_capacity'])
 			}
+			if (resultJson && resultJson['charging_state'] === 'full_charging') {
+				setCharging(true)
+			} else {
+				setCharging(false)
+			}
 		} catch (e) { /* do nothing */ }
 	})
 }
 
 fetchAndSetSensors()
-setInterval(fetchAndSetSensors, 10000)
+setInterval(fetchAndSetSensors, 2000)
 
 // EVENT HANDLERS ///////////////////////////////////
 

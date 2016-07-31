@@ -54,7 +54,7 @@ end
 def put_me_down_check
 	bumps = STATE[:sensors][:bumps_and_wheel_drops]
 	if bumps && bumps[:wheel_drop_right] && bumps[:wheel_drop_left]
-		play("#{PUT_ME_DOWN_SOUND}#{(STATE[:put_me_down] % 3)}")
+		play("#{PUT_ME_DOWN_SOUND}#{(STATE[:put_me_down] % 2)}")
 		STATE[:put_me_down] += 1
 	end
 end
