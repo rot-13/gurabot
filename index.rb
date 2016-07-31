@@ -54,6 +54,7 @@ end
 
 def put_me_down_check
 	puts SENSORS[:data]
+	return
 	if SENSORS[:data][:wheel_drop_right] && SENSORS[:data][:wheel_drop_left]
 		play(PUT_ME_DOWN_SOUNDS.sample)
 	end
@@ -153,7 +154,9 @@ end
 if ROOMBA
 	Thread.new do
 		loop do
+			puts 'start'
 			sleep SENSORS_INTERVAL
+			puts 'loop'
 			SENSORS[:data] = ROOMBA.get_sensors(0).to_json
 			put_me_down_check
 		end
