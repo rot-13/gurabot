@@ -51,7 +51,9 @@ end
 
 def put_me_down_check
 	bumps = STATE[:sensors][:bumps_and_wheel_drops]
+	puts bumps
 	if bumps && bumps[:wheel_drop_right] && bumps[:wheel_drop_left]
+		puts PUT_ME_DOWN_SOUND + (STATE[:put_me_down] % 3)
 		play(PUT_ME_DOWN_SOUND + (STATE[:put_me_down] % 3))
 		STATE[:put_me_down] += 1
 	end
@@ -61,6 +63,11 @@ def convert_ang_to_left_wheel(ang, vel)
 	ang = ang % (Math::PI * 2)
 	if 0 <= ang && ang < Math::PI * 0.5
 		mult = Math.cos(ang * 2)
+		if mult > 0
+			mult *= mult
+		else
+			mult *= -mult
+		end
 	elsif Math::PI * 0.5 <= ang && ang < Math::PI
 		mult = -1
 	elsif Math::PI <= ang && ang < Math::PI * 1.5
@@ -68,7 +75,7 @@ def convert_ang_to_left_wheel(ang, vel)
 	else
 		mult = 1
 	end
-	mult * mult * vel * MAX_VELOCITY
+	mult * vel * MAX_VELOCITY
 end
 
 # routes
