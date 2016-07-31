@@ -75,14 +75,16 @@ end
 
 def play_behavior(name)
 	behavior = BEHAVIORS[name]
+	behavior = BEHAVIORS[behavior] unless behavior.kind_of?(Array)
 	behavior.each do |command|
 		instruction = command.split('_')
 		instruction_name = instruction[0]
 		instruction_prop = instruction[1].to_i
-		puts command
+		wait_for = instruction[2]
 		case instruction_name
 		when "sfx"
-			play(name)
+			Thread.new { play(name) }
+			wait_for = instruction_prop
 		when "left"
 			ROOMBA.spin_left(instruction_prop)
 		when "right"
@@ -92,10 +94,12 @@ def play_behavior(name)
 		when "backward"
 			ROOMBA.straight(-instruction_prop)
 		when "wait"
-			sleep (instruction_prop / 1000)
+			sleep (instruction_prop.to_f / 1000)
 		when "halt"
 			ROOMBA.halt
+			wait_for = instruction_prop
 		end
+		sleep (wait_for.to_f / 1000) if wait_for
 	end
 end
 
