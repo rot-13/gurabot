@@ -16,22 +16,22 @@
 	</head>
 	<body>
 		<div class="roomba-container container-main container-fluid text-xs-center">
-		<nav class="navbar navbar-light bg-faded">
-			<a class="navbar-brand" href="#">
-				<i class="fa fa-bullseye" aria-hidden="true"></i>
-				GuraBot
-			</a>
-			<form class="pull-xs-right">
-				<i class="fa fa-battery-4 battery" aria-hidden="true"></i>
-				<button type="button" data-cmd-id="sleep" class="btn btn-warning btn-command">
-					<i class="fa fa-power-off" aria-hidden="true"></i>
-				</button>
-				<button type="button" data-cmd-id="wake" class="btn btn-primary btn-command">
-					<i class="fa fa-cog" aria-hidden="true"></i>
-				</button>
+			<nav class="navbar navbar-light bg-faded">
+				<a class="navbar-brand" href="#">
+					<i class="fa fa-bullseye" aria-hidden="true"></i>
+					GuraBot
+				</a>
+				<form class="pull-xs-right">
+					<i class="fa fa-battery-4 battery" aria-hidden="true"></i>
+					<button type="button" data-cmd-id="sleep" class="btn btn-warning btn-command">
+						<i class="fa fa-power-off" aria-hidden="true"></i>
+					</button>
+					<button type="button" data-cmd-id="wake" class="btn btn-primary btn-command">
+						<i class="fa fa-cog" aria-hidden="true"></i>
+					</button>
 
-			</form>
-		</nav>
+				</form>
+			</nav>
 
 			<div class="row">
 
@@ -67,89 +67,31 @@
 
 					<hr/>
 
-					<!-- Songs -->
-					<div class="row">
-						<div class="col-sm-12">
-							<button type="button" class="btn btn-primary btn-command" data-cmd-id="songs/wrecking_ball">
-								Wrecking Ball
-								<i class="fa fa-music" aria-hidden="true"></i>
-							</button>
-						</div>
-					</div>
-
-					<hr/>
-
-					<!-- Gura Sounds -->
-					<div class="row bottom-margin">
-						<div class="col-sm-12">
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="ani_ehod">Ehod</button>
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="zomag">z0mag</button>
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="keshet">Keshet?</button>
-						</div>
-					</div>
-
-					<div class="row bottom-margin">
-						<div class="col-sm-12">
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="eifo_ochlim">Eifo ochlim?</button>
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="gurabot">Gurabot</button>
-						</div>
-					</div>
-
-					<div class="row bottom-margin">
-						<div class="col-sm-12">
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="ole_1">Olé 1</button>
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="ole_2">Olé 2</button>
-						</div>
-					</div>
-
-					<div class="row bottom-margin">
-						<div class="col-sm-12">
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="eifo_matan">Matan?</button>
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="gartner">Gartner?</button>
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="eifo_erez">Erez?</button>
-						</div>
-					</div>
-
-					<div class="row bottom-margin">
-						<div class="col-sm-12">
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="sofash_risus">Risus</button>
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="eich_aya_sofash">Eich ha'sofash?</button>
-						</div>
-					</div>
-
-					<div class="row bottom-margin">
-						<div class="col-sm-12">
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="kotvim_code">Code?</button>
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="ma_ratz">Ma ratz?</button>
-						</div>
-					</div>
-
-					<div class="row bottom-margin">
-						<div class="col-sm-12">
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="ma_kore_po">Ma kore po?</button>
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="lama_ze_po">Lama ze po?</button>
-						</div>
-					</div>
-
-					<div class="row bottom-margin">
-						<div class="col-sm-12">
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="ma_hamatzav">Ma ha'matzav?</button>
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="akol_esh">Akol esh?</button>
-						</div>
-					</div>
-
-					<div class="row bottom-margin">
-						<div class="col-sm-12">
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="mi_isher_et_ze">Mi isher et ze?</button>
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="yesh_action">Yesh action?</button>
-						</div>
-					</div>
-
-					<div class="row bottom-margin">
-						<div class="col-sm-12">
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="haxball">Haxball</button>
-							<button type="button" class="btn btn-info btn-snd" data-snd-id="wow">Wow, ma ze?</button>
-						</div>
+					<!-- SFX -->
+					<div class="sfx-row">
+						<button type="button" class="btn btn-primary btn-command" data-cmd-id="songs/wrecking_ball">Wrecking Ball&nbsp;<i class="fa fa-music" aria-hidden="true"></i></button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="ani_ehod">Ehod</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="zomag">z0mag</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="keshet">Keshet?</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="eifo_ochlim">Eifo ochlim?</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="gurabot">Gurabot</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="ole_1">Olé 1</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="ole_2">Olé 2</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="eifo_matan">Matan?</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="gartner">Gartner?</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="eifo_erez">Erez?</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="sofash_risus">Risus</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="eich_aya_sofash">Eich ha'sofash?</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="kotvim_code">Code?</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="ma_ratz">Ma ratz?</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="ma_kore_po">Ma kore po?</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="lama_ze_po">Lama ze po?</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="ma_hamatzav">Ma ha'matzav?</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="akol_esh">Akol esh?</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="mi_isher_et_ze">Mi isher et ze?</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="yesh_action">Yesh action?</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="haxball">Haxball</button>
+						<button type="button" class="btn btn-info btn-snd" data-snd-id="wow">Wow, ma ze?</button>
 					</div>
 				</div>
 			</div>

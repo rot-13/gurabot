@@ -96,16 +96,6 @@ function halt() {
 $('body').on('mouseup touchend', halt)
 $(window).blur(halt);
 
-// Handle disabling text-to-speect button when there's no text
-$('.text-to-speech input').keyup(function() {
-	var input = $('.text-to-speech input').val()
-	if (input.length == 0) {
-		$('.text-to-speech button').addClass('disabled')
-	} else {
-		$('.text-to-speech button').removeClass('disabled')
-	}
-})
-
 // DIRECT CONTROL ///////////////////////////////////
 
 var controlSize = $('.direct-control').width();
