@@ -61,11 +61,6 @@ def convert_ang_to_left_wheel(ang, vel)
 	ang = ang % (Math::PI * 2)
 	if 0 <= ang && ang < Math::PI * 0.5
 		mult = Math.cos(ang * 2)
-		if mult > 0
-			mult *= mult
-		else
-			mult *= -mult
-		end
 	elsif Math::PI * 0.5 <= ang && ang < Math::PI
 		mult = -1
 	elsif Math::PI <= ang && ang < Math::PI * 1.5
@@ -113,10 +108,6 @@ namespace "/command" do
 
 	post "/dock" do
 		command { ROOMBA.dock }
-	end
-
-	post "/clean" do
-		command { ROOMBA.clean }
 	end
 
 	post "/wake" do
