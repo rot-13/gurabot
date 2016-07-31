@@ -32,7 +32,7 @@ end
 # helpers
 
 MAX_VELOCITY = 500
-SENSORS_INTERVAL = 2500
+SENSORS_INTERVAL = 1
 
 def command
 	yield if ROOMBA
