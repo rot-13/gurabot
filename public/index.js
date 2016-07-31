@@ -96,12 +96,6 @@ function halt() {
 $('body').on('mouseup touchend', halt)
 $(window).blur(halt);
 
-// Registers the text-to-speech event handler.
-$('.text-to-speech button').click(function(e) {
-	e.preventDefault()
-	sendCommand('speech', $('.text-to-speech input').val())
-})
-
 // Handle disabling text-to-speect button when there's no text
 $('.text-to-speech input').keyup(function() {
 	var input = $('.text-to-speech input').val()

@@ -4,7 +4,7 @@
 
 ### Installation
 
-1. Run (on Linux) `sudo apt-get install libsndfile portaudio espeak aplay`.
+1. Run (on Linux) `sudo apt-get install libsndfile portaudio aplay`.
 2. Run `bundle install`.
 
 ### Development
