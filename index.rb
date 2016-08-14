@@ -96,7 +96,7 @@ def play_behavior(name)
 
 	# /(?<type>.)\[(?<velocity>.*)\]\/(?<duration>.*)/
 	behavior_array.each do |command|
-		instruction = command.match(/(?<type>.)(\[(?<velocity>.*)\])?\/(?<duration>.*)/)
+		instruction = command.match(/(?<type>.)(\[(?<velocity>.*)\])?(\/(?<duration>.*))?/)
 		velocity = instruction[:velocity].to_i
 		duration = instruction[:duration].to_f
 		case instruction[:type]
