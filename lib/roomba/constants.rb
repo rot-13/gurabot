@@ -15,6 +15,7 @@ class Roomba
 
 		OPCODES.each do |name, val|
 			send :define_method, name do
+				puts "called " + name 
 				write_chars([val])
 			end
 		end

@@ -50,7 +50,11 @@ end
 
 def full_mode_command
 	if ROOMBA
-		ROOMBA.full_mode if passive?
+		if passive?
+			puts 'entering full mode'
+			ROOMBA.full_mode
+			puts 'entered full mode'
+		end
 		yield
 	end
 	"ok"

@@ -62,14 +62,16 @@ function fetchAndSetSensors() {
 			if (resultJson && resultJson['battery_charge'] && resultJson['battery_capacity']) {
 				setBattery(resultJson['battery_charge'] / resultJson['battery_capacity'])
 			}
-			if (resultJson && resultJson['charging_state'] !== 'full_charging') {
-				setCharging(true)
-			} else {
-				setCharging(false)
-			}
+			setCharging(resultJson && resultJson['charging_state'] === 'full_charging')
 		} catch (e) { /* do nothing */ }
 	})
 }
+
+r s =
+0 0 f
+0 1 f
+1 0 f
+1 1 t
 
 fetchAndSetSensors()
 setInterval(fetchAndSetSensors, 2000)
