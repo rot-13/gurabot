@@ -70,6 +70,7 @@ end
 
 def passive?
 	puts STATE[:sensors]
+	puts STATE[:sensors][:oi_mode]
 	STATE[:sensors][:oi_mode] == "passive"
 end
 
