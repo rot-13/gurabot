@@ -96,7 +96,6 @@ end
 
 def play_behavior(name)
 	behavior = BEHAVIORS[name]
-	behavior << "halt"
 	behavior_array = []
 
 	behavior.each do |command|
@@ -108,7 +107,6 @@ def play_behavior(name)
 	end
 	behavior_array << BEHAVIOR_HALT
 
-	# /(?<type>.)\[(?<velocity>.*)\]\/(?<duration>.*)/
 	behavior_array.each do |command|
 		instruction = command.match(/(?<type>.)(\[(?<velocity>.*)\])?(\/(?<duration>.*))?/)
 		velocity = instruction[:velocity].to_i
@@ -152,7 +150,6 @@ namespace "/command" do
 
 	post "/anchor" do
 		command {
-			puts STATE[:sensors][:charging_sources_available]
 			if docked?
 				ROOMBA.full_mode
 				play_behavior("undock")
