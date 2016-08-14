@@ -31,7 +31,8 @@ BEHAVIORS = JSON.parse(File.read('./behaviors.json'))
 # helpers
 
 MAX_VELOCITY = 500
-SENSORS_INTERVAL = 2
+SENSORS_INTERVAL = 1
+LIFT_CHECK_INTERVAL = 1.5
 PUT_ME_DOWN_SOUND = "torido_oti_"
 
 BEHAVIOR_HALT     = "🚫"
@@ -58,7 +59,7 @@ def play(sound)
 	system("aplay", File.absolute_path("./wavs/#{sound}.wav"))
 end
 
-def put_me_down_check
+def lift_check
 	bumps = STATE[:sensors][:bumps_and_wheel_drops]
 	if bumps && bumps[:wheel_drop_right] && bumps[:wheel_drop_left]
 		play("#{PUT_ME_DOWN_SOUND}#{(STATE[:put_me_down] % 2)}")
@@ -129,22 +130,6 @@ namespace "/command" do
 		command { ROOMBA.drive_direct(left, right) }
 	end
 
-	post "/move_forward" do
-		command { ROOMBA.straight(MAX_VELOCITY) }
-	end
-
-	post "/move_backward" do
-		command { ROOMBA.straight(-MAX_VELOCITY) }
-	end
-
-	post "/rotate_left" do
-		command { ROOMBA.spin_left(MAX_VELOCITY) }
-	end
-
-	post "/rotate_right" do
-		command { ROOMBA.spin_right(MAX_VELOCITY) }
-	end
-
 	post "/halt" do
 		command {
 			ROOMBA.halt
@@ -196,7 +181,13 @@ if ROOMBA
 		loop do
 			sleep SENSORS_INTERVAL
 			STATE[:sensors] = ROOMBA.get_sensors(0)
-			put_me_down_check
+		end
+	end
+
+	Thread.new do
+		loop do
+			sleep LIFT_CHECK_INTERVAL
+			lift_check
 		end
 	end
 end
