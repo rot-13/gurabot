@@ -141,14 +141,16 @@ namespace "/command" do
 		}
 	end
 
-	post "/dock" do
-		command { ROOMBA.dock }
-	end
-
-	post "/undock" do
+	post "/anchor" do
 		command {
-			ROOMBA.full_mode
-			play_behavior("undock")
+			puts STATE[:sensors][:charging_sources_available]
+			if docked?
+				ROOMBA.full_mode
+				play_behavior("undock")
+			else
+				ROOMBA.start
+				ROOMBA.dock
+			end
 		}
 	end
 
