@@ -34,6 +34,13 @@ MAX_VELOCITY = 500
 SENSORS_INTERVAL = 2
 PUT_ME_DOWN_SOUND = "torido_oti_"
 
+BEHAVIOR_HALT     = "🚫"
+BEHAVIOR_SFX      = "🎵"
+BEHAVIOR_LEFT     = "◀"
+BEHAVIOR_RIGHT    = "▶"
+BEHAVIOR_FORWARD  = "▲"
+BEHAVIOR_BACKWARD = "▼"
+
 def command
 	yield if ROOMBA
 	"ok"
@@ -75,31 +82,38 @@ end
 
 def play_behavior(name)
 	behavior = BEHAVIORS[name]
-	behavior = BEHAVIORS[behavior] unless behavior.kind_of?(Array)
+	behavior << "halt"
+	behavior_array = []
+
 	behavior.each do |command|
-		instruction = command.split('_')
-		instruction_name = instruction[0]
-		instruction_prop = instruction[1].to_i
-		wait_for = instruction[2]
-		case instruction_name
-		when "sfx"
-			Thread.new { play(name) }
-			wait_for = instruction_prop
-		when "left"
-			ROOMBA.spin_left(instruction_prop)
-		when "right"
-			ROOMBA.spin_right(instruction_prop)
-		when "forward"
-			ROOMBA.straight(instruction_prop)
-		when "backward"
-			ROOMBA.straight(-instruction_prop)
-		when "wait"
-			sleep (instruction_prop.to_f / 1000)
-		when "halt"
-			ROOMBA.halt
-			wait_for = instruction_prop
+		if command[0] == "$"
+			behavior_array += BEHAVIORS[command[1..-1]]
+		else
+			behavior_array << command
 		end
-		sleep (wait_for.to_f / 1000) if wait_for
+	end
+	behavior_array << BEHAVIOR_HALT
+
+	# /(?<type>.)\[(?<velocity>.*)\]\/(?<duration>.*)/
+	behavior_array.each do |command|
+		instruction = command.match(/(?<type>.)(\[(?<velocity>.*)\])?\/(?<duration>.*)/)
+		velocity = instruction[:velocity].to_i
+		duration = instruction[:duration].to_f
+		case instruction[:type]
+		when BEHAVIOR_SFX
+			Thread.new { play(name) }
+		when BEHAVIOR_LEFT
+			ROOMBA.spin_left(velocity)
+		when BEHAVIOR_RIGHT
+			ROOMBA.spin_right(velocity)
+		when BEHAVIOR_FORWARD
+			ROOMBA.straight(velocity)
+		when BEHAVIOR_BACKWARD
+			ROOMBA.straight(-velocity)
+		when BEHAVIOR_HALT
+			ROOMBA.halt
+		end
+		sleep (duration.to_f / 1000) if duration && duration > 0
 	end
 end
 
