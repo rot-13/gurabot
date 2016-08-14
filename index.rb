@@ -14,8 +14,7 @@ set :bind, "0.0.0.0" # listen on all interfaces
 
 begin
 	ROOMBA = Roomba.new(settings.roomba_port, settings.roomba_baud_rate)
-	ROOMBA.full_mode if ROOMBA
-	STATE = {sensors:{}, put_me_down: 0}
+	STATE = {sensors:{}, put_me_down: 0, docked: true}
 rescue Exception => e
 	ROOMBA = nil
 	STATE = {}
@@ -50,7 +49,7 @@ end
 
 def command_in_full_mode
 	if ROOMBA
-		ROOMBA.full_mode
+		full_mode if docked?
 		yield
 	end
 	"ok"
@@ -58,6 +57,16 @@ end
 
 def command_with_return_val
 	yield if ROOMBA
+end
+
+def full_mode
+	STATE[:docked] = false
+	ROOMBA.full_mode
+end
+
+def passive
+	STATE[:docked] = true
+	ROOMBA.start
 end
 
 def docked?
@@ -199,7 +208,6 @@ if ROOMBA
 		loop do
 			sleep SENSORS_INTERVAL
 			STATE[:sensors] = ROOMBA.get_sensors(6)
-			docked = STATE[:docked] = STATE[:sensors][:charging_sources_available][:home_base]
 		end
 	end
 
@@ -213,7 +221,7 @@ if ROOMBA
 	Thread.new do
 		loop do
 			sleep DOCK_CHECK_INTERVAL
-			ROOMBA.start if docked?
+			passive if STATE[:sensors] && STATE[:sensors][:charging_sources_available] && STATE[:sensors][:charging_sources_available][:home_base]
 		end
 	end
 end
