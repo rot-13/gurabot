@@ -197,9 +197,10 @@ namespace "/command" do
 	end
 
 	post "/sound" do
-		sound = request.body.read.to_s
-		play_behavior(sound)
-		"ok"
+		command_in_full_mode {
+			sound = request.body.read.to_s
+			play_behavior(sound)
+		}
 	end
 end
 
