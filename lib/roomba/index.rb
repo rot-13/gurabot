@@ -131,7 +131,7 @@ class Roomba
 
       # notes can either be a string or the actual ID
       note = NOTES[note] if note.is_a?(String)
-      [note, duration*multiplier]
+      [note, duration * multiplier]
     end
 
     # The protocol requires us to send the number of notes and the song number first

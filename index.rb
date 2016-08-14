@@ -169,15 +169,14 @@ namespace "/command" do
 
 	post "/songs/work" do
 		command {
-			ROOMBA.define_song(3, [[76, 2], [72, 2], [72, 2] [74, 2], [74, 4]], 16)
-			ROOMBA.play_song(3)
+			ROOMBA.define_song(2, [[76, 2], [72, 2], [72, 2], [74, 2], [74, 4]], 16)
+			ROOMBA.play_song(2)
 		}
 	end
 
 	post "/sensors" do
 		command_with_return_val {
-			docked?
-			# STATE[:sensors].to_json
+			STATE[:sensors].to_json
 		}
 	end
 
