@@ -147,7 +147,7 @@ namespace "/command" do
 
 	post "/anchor" do
 		command_with_return_val {
-			STATE[:sensors][:oi_mode]
+			STATE[:sensors][:oi_mode].to_json
 		}
 		# command {
 		# 	puts STATE[:sensors][:charging_sources_available]
@@ -178,7 +178,7 @@ namespace "/command" do
 
 	post "/songs/work" do
 		command {
-			ROOMBA.define_song(2, [[76, 2], [72, 2], [72, 2], [74, 2], [74, 4], [77, 1], [79, 1], [77, 1], [76, 1], [76, 2], [72, 2], [72, 2], [74, 2], [74, 4]], 7)
+			ROOMBA.define_song(2, [[76, 2], [72, 2], [72, 2], [74, 2], [74, 4], [77, 1], [79, 1], [77, 1], [76, 1], [76, 2], [72, 2], [72, 2], [74, 2], [74, 4]], 10)
 			ROOMBA.play_song(2)
 		}
 	end
