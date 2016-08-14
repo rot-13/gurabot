@@ -172,7 +172,7 @@ namespace "/command" do
 	end
 
 	post "/songs/wrecking_ball" do
-		command {
+		full_mode_command {
 			ROOMBA.define_song(3, [[70, 1], [70, 1], [70, 1], [70, 1], [70, 1], [70, 3], [69, 1] ,[69, 7], [65, 1], [70, 1], [69, 1], [67, 1], [65, 1], [70, 3], [69, 1], [69, 4]], 16)
 			ROOMBA.play_song(3)
 		}
