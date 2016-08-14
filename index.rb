@@ -51,6 +51,10 @@ def command_with_return_val
 	yield if ROOMBA
 end
 
+def docked?
+	STATE[:sensors][:charging_sources_available][:home_base]
+end
+
 def convert_int(int)
 	[int].pack("s>")
 end
@@ -165,7 +169,8 @@ namespace "/command" do
 
 	post "/sensors" do
 		command_with_return_val {
-			STATE[:sensors].to_json
+			docked?
+			# STATE[:sensors].to_json
 		}
 	end
 
