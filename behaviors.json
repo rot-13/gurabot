@@ -10,7 +10,6 @@
 	"gartner":     ["🎵", "$SEARCH"],
 	"eifo_erez":   ["🎵", "$SEARCH"],
 	"keshet":      ["🎵", "$SEARCH"],
-	"ani_ehod":    ["🎵"],
 	"risus":       ["🎵"],
 	"sofash":      ["🎵"],
 	"kotvim_code": ["🎵"],
@@ -20,7 +19,6 @@
 	"ma_hamatzav": ["🎵"],
 	"akol_esh":    ["🎵"],
 	"mi_isher":    ["🎵"],
-	"zomag":       ["🎵"],
 	"action":      ["🎵"],
 	"wow":         ["🎵", "▼[100]/2000"],
 
