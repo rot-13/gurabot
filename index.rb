@@ -52,11 +52,7 @@ def command_with_return_val
 end
 
 def docked?
-	STATE[:sensors][:charging_sources_available][:home_base]
-end
-
-def passive?
-	STATE[:sensors][:oi_mode] == "passive"
+	STATE[:docked]
 end
 
 def convert_int(int)
@@ -146,19 +142,16 @@ namespace "/command" do
 	end
 
 	post "/anchor" do
-		command_with_return_val {
-			STATE[:sensors][:oi_mode].to_json
+		command {
+			puts STATE[:sensors][:charging_sources_available]
+			if docked?
+				ROOMBA.full_mode
+				play_behavior("undock")
+			else
+				ROOMBA.start
+				ROOMBA.dock
+			end
 		}
-		# command {
-		# 	puts STATE[:sensors][:charging_sources_available]
-		# 	if docked?
-		# 		ROOMBA.full_mode
-		# 		play_behavior("undock")
-		# 	else
-		# 		ROOMBA.start
-		# 		ROOMBA.dock
-		# 	end
-		# }
 	end
 
 	post "/wake" do
@@ -201,6 +194,15 @@ if ROOMBA
 		loop do
 			sleep SENSORS_INTERVAL
 			STATE[:sensors] = ROOMBA.get_sensors(6)
+			old_docked = !!STATE[:docked]
+			new_docked = STATE[:docked] = STATE[:sensors][:charging_sources_available][:home_base]
+			if old_docked != new_docked
+				if new_docked
+					ROOMBA.start
+				else
+					ROOMBA.full_mode
+				end
+			end
 		end
 	end
 
