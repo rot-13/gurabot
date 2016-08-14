@@ -167,6 +167,13 @@ namespace "/command" do
 		}
 	end
 
+	post "/songs/work" do
+		command {
+			ROOMBA.define_song(3, [[76, 2], [72, 2], [72, 2] [74, 2], [74, 4]], 16)
+			ROOMBA.play_song(3)
+		}
+	end
+
 	post "/sensors" do
 		command_with_return_val {
 			docked?
