@@ -176,7 +176,7 @@ namespace "/command" do
 
 	post "/songs/hemal" do
 		command_in_full_mode {
-			ROOMBA.define_song(1, [[79, 1], [74, 3], [81, 3], [72, 5], [72, 2], [84, 4], [81, 4], [79, 4],[77, 4]], 10)
+			ROOMBA.define_song(1, [[79, 1], [74, 3], [81, 4], [72, 6], [72, 2], [84, 4], [81, 4], [79, 4], [77, 4]], 12)
 			ROOMBA.play_song(1)
 		}
 	end
