@@ -180,14 +180,15 @@ namespace "/command" do
 
 	post "/sensors" do
 		command_with_return_val {
-			STATE[:sensors].merge(STATE[:other_sensors]).to_json
+			STATE[:other_sensors].merge(STATE[:sensors]).to_json
 		}
 	end
 
 	post "/sound" do
-		sound = request.body.read.to_s
-		play_behavior(sound)
-		"ok"
+		command {
+			sound = request.body.read.to_s
+			play_behavior(sound)
+		}
 	end
 end
 
