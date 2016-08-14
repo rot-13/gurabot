@@ -67,12 +67,6 @@ function fetchAndSetSensors() {
 	})
 }
 
-r s =
-0 0 f
-0 1 f
-1 0 f
-1 1 t
-
 fetchAndSetSensors()
 setInterval(fetchAndSetSensors, 2000)
 
