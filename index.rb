@@ -32,7 +32,7 @@ BEHAVIORS = JSON.parse(File.read('./behaviors.json'))
 
 MAX_VELOCITY = 500
 SENSORS_INTERVAL = 1
-LIFT_CHECK_INTERVAL = 1.5
+LIFT_CHECK_INTERVAL = 2
 PUT_ME_DOWN_SOUND = "torido_oti_"
 
 BEHAVIOR_HALT     = "🚫"
@@ -180,7 +180,7 @@ if ROOMBA
 	Thread.new do
 		loop do
 			sleep SENSORS_INTERVAL
-			STATE[:sensors] = ROOMBA.get_sensors(0)
+			STATE[:sensors] = ROOMBA.get_sensors(6)
 		end
 	end
 
