@@ -55,6 +55,10 @@ def docked?
 	STATE[:sensors][:charging_sources_available][:home_base]
 end
 
+def passive?
+	STATE[:sensors][:oi_mode] == "passive"
+end
+
 def convert_int(int)
 	[int].pack("s>")
 end
@@ -142,16 +146,19 @@ namespace "/command" do
 	end
 
 	post "/anchor" do
-		command {
-			puts STATE[:sensors][:charging_sources_available]
-			if docked?
-				ROOMBA.full_mode
-				play_behavior("undock")
-			else
-				ROOMBA.start
-				ROOMBA.dock
-			end
+		command_with_return_val {
+			STATE[:sensors][:oi_mode]
 		}
+		# command {
+		# 	puts STATE[:sensors][:charging_sources_available]
+		# 	if docked?
+		# 		ROOMBA.full_mode
+		# 		play_behavior("undock")
+		# 	else
+		# 		ROOMBA.start
+		# 		ROOMBA.dock
+		# 	end
+		# }
 	end
 
 	post "/wake" do
@@ -171,7 +178,7 @@ namespace "/command" do
 
 	post "/songs/work" do
 		command {
-			ROOMBA.define_song(2, [[76, 2], [72, 2], [72, 2], [74, 2], [74, 4], [77, 1], [79, 1], [77, 1], [76, 1], [76, 2], [72, 2], [72, 2], [74, 2], [74, 4], [77, 1], [79, 1], [77, 1], [76, 1], [76, 2], [72, 2], [72, 2], [74, 2], [74, 4], [77, 1], [79, 1], [77, 1], [76, 1], [76, 2], [72, 2], [72, 2], [74, 2], [74, 4], [77, 1], [79, 1], [77, 1], [76, 1], [76, 2], [72, 2], [72, 2], [74, 2], [74, 4]], 16)
+			ROOMBA.define_song(2, [[76, 2], [72, 2], [72, 2], [74, 2], [74, 4], [77, 1], [79, 1], [77, 1], [76, 1], [76, 2], [72, 2], [72, 2], [74, 2], [74, 4]], 16)
 			ROOMBA.play_song(2)
 		}
 	end
