@@ -31,7 +31,7 @@ BEHAVIORS = JSON.parse(File.read('./behaviors.json'))
 # helpers
 
 MAX_VELOCITY = 500
-SENSORS_INTERVAL = 2
+SENSORS_INTERVAL = 1.6
 PUT_ME_DOWN_SOUND = "torido_oti_"
 
 BEHAVIOR_HALT     = "🚫"
@@ -43,6 +43,14 @@ BEHAVIOR_BACKWARD = "▼"
 
 def command
 	yield if ROOMBA
+	"ok"
+end
+
+def full_mode_command
+	if ROOMBA
+		ROOMBA.full_mode if passive?
+		yield
+	end
 	"ok"
 end
 
@@ -58,12 +66,22 @@ def play(sound)
 	system("aplay", File.absolute_path("./wavs/#{sound}.wav"))
 end
 
-def put_me_down_check
+def passive?
+	STATE[:sensors][:oi_mode] == "passive"
+end
+
+def docked?
+	STATE[:sensors][:charging_state] != "waiting"
+end
+
+def periodic_checks
 	bumps = STATE[:sensors][:bumps_and_wheel_drops]
 	if bumps && bumps[:wheel_drop_right] && bumps[:wheel_drop_left]
 		play("#{PUT_ME_DOWN_SOUND}#{(STATE[:put_me_down] % 2)}")
 		STATE[:put_me_down] += 1
 	end
+
+	ROOMBA.start if docked?
 end
 
 def convert_ang_to_left_wheel(ang, vel)
@@ -126,49 +144,26 @@ namespace "/command" do
 		ang = vector[1]
 		left = convert_ang_to_left_wheel(ang, vel)
 		right = convert_ang_to_left_wheel(ang - (Math::PI * 0.5), vel)
-		command { ROOMBA.drive_direct(left, right) }
-	end
-
-	post "/move_forward" do
-		command { ROOMBA.straight(MAX_VELOCITY) }
-	end
-
-	post "/move_backward" do
-		command { ROOMBA.straight(-MAX_VELOCITY) }
-	end
-
-	post "/rotate_left" do
-		command { ROOMBA.spin_left(MAX_VELOCITY) }
-	end
-
-	post "/rotate_right" do
-		command { ROOMBA.spin_right(MAX_VELOCITY) }
+		full_mode_command { ROOMBA.drive_direct(left, right) }
 	end
 
 	post "/halt" do
-		command {
+		full_mode_command {
 			ROOMBA.halt
 			ROOMBA.stop_all_motors
 		}
 	end
 
 	post "/dock" do
-		command { ROOMBA.dock }
-	end
-
-	post "/undock" do
 		command {
-			ROOMBA.full_mode
-			play_behavior("undock")
+			if docked?
+				ROOMBA.full_mode
+				play_behavior("undock")
+			else
+				ROOMBA.start
+				ROOMBA.dock
+			end
 		}
-	end
-
-	post "/wake" do
-		command { ROOMBA.full_mode }
-	end
-
-	post "/sleep" do
-		command { ROOMBA.start }
 	end
 
 	post "/songs/wrecking_ball" do
@@ -185,7 +180,7 @@ namespace "/command" do
 	end
 
 	post "/sound" do
-		command {
+		full_mode_command {
 			sound = request.body.read.to_s
 			play_behavior(sound)
 		}
@@ -197,7 +192,7 @@ if ROOMBA
 		loop do
 			sleep SENSORS_INTERVAL
 			STATE[:sensors] = ROOMBA.get_sensors(6)
-			put_me_down_check
+			periodic_checks
 		end
 	end
 end
