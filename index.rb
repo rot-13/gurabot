@@ -180,7 +180,7 @@ namespace "/command" do
 
 	post "/sensors" do
 		command_with_return_val {
-			STATE[:sensors].to_json
+			STATE[:sensors].merge(STATE[:other_sensors]).to_json
 		}
 	end
 
@@ -195,9 +195,15 @@ if ROOMBA
 	Thread.new do
 		loop do
 			sleep SENSORS_INTERVAL
-			STATE[:sensors] = ROOMBA.get_sensors(100)
-			puts 'Fetched sensors'
+			STATE[:sensors] = ROOMBA.get_sensors(0)
 			put_me_down_check
+		end
+	end
+
+	Thread.new do
+		loop do
+			sleep SENSORS_INTERVAL
+			STATE[:other_sensors] = ROOMBA.get_sensors(5)
 		end
 	end
 end
