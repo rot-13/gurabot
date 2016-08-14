@@ -160,10 +160,10 @@ namespace "/command" do
 	post "/anchor" do
 		command {
 			if docked?
-				ROOMBA.full_mode
+				full_mode
 				play_behavior("undock")
 			else
-				ROOMBA.start
+				passive
 				ROOMBA.dock
 			end
 		}
