@@ -31,7 +31,9 @@ BEHAVIORS = JSON.parse(File.read('./behaviors.json'))
 # helpers
 
 MAX_VELOCITY = 500
-SENSORS_INTERVAL = 1.6
+SENSORS_INTERVAL = 0.5
+LIFTED_CHECK_INTERVAL = 2
+PASSIVE_CHECK_INTERVAL = 20
 PUT_ME_DOWN_SOUND = "torido_oti_"
 
 BEHAVIOR_HALT     = "🚫"
@@ -67,6 +69,7 @@ def play(sound)
 end
 
 def passive?
+	puts STATE[:sensors]
 	STATE[:sensors][:oi_mode] == "passive"
 end
 
@@ -74,13 +77,15 @@ def docked?
 	STATE[:sensors][:charging_state] != "waiting"
 end
 
-def periodic_checks
+def check_if_lifted
 	bumps = STATE[:sensors][:bumps_and_wheel_drops]
 	if bumps && bumps[:wheel_drop_right] && bumps[:wheel_drop_left]
 		play("#{PUT_ME_DOWN_SOUND}#{(STATE[:put_me_down] % 2)}")
 		STATE[:put_me_down] += 1
 	end
+end
 
+def check_if_docked
 	ROOMBA.start if docked?
 end
 
@@ -192,7 +197,20 @@ if ROOMBA
 		loop do
 			sleep SENSORS_INTERVAL
 			STATE[:sensors] = ROOMBA.get_sensors(6)
-			periodic_checks
+		end
+	end
+
+	Thread.new do
+		loop do
+			sleep PASSIVE_CHECK_INTERVAL
+			check_if_docked
+		end
+	end
+
+	Thread.new do
+		loop do
+			sleep LIFTED_CHECK_INTERVAL
+			check_if_lifted
 		end
 	end
 end
