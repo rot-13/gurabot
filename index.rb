@@ -209,7 +209,7 @@ if ROOMBA
 	Thread.new do
 		loop do
 			sleep DOCK_CHECK_INTERVAL
-			ROOMBA.start if docked
+			ROOMBA.start if docked?
 		end
 	end
 end
