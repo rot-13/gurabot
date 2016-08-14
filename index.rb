@@ -50,7 +50,7 @@ end
 
 def command_in_full_mode
 	if ROOMBA
-		ROOMBA.full_mode if docked?
+		ROOMBA.full_mode
 		yield
 	end
 	"ok"
