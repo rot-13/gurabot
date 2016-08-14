@@ -196,7 +196,7 @@ if ROOMBA
 	Thread.new do
 		loop do
 			sleep SENSORS_INTERVAL
-			STATE[:sensors] = ROOMBA.get_sensors(100)
+			STATE[:sensors] = ROOMBA.get_sensors(6)
 			put_me_down_check
 		end
 	end
