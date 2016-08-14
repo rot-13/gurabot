@@ -33,6 +33,7 @@ BEHAVIORS = JSON.parse(File.read('./behaviors.json'))
 MAX_VELOCITY = 500
 SENSORS_INTERVAL = 1
 LIFT_CHECK_INTERVAL = 2
+DOCK_CHECK_INTERVAL = 10
 PUT_ME_DOWN_SOUND = "torido_oti_"
 
 BEHAVIOR_HALT     = "🚫"
@@ -195,9 +196,6 @@ if ROOMBA
 			sleep SENSORS_INTERVAL
 			STATE[:sensors] = ROOMBA.get_sensors(6)
 			docked = STATE[:docked] = STATE[:sensors][:charging_sources_available][:home_base]
-			if docked
-				ROOMBA.start
-			end
 		end
 	end
 
@@ -205,6 +203,13 @@ if ROOMBA
 		loop do
 			sleep LIFT_CHECK_INTERVAL
 			lift_check
+		end
+	end
+
+	Thread.new do
+		loop do
+			sleep DOCK_CHECK_INTERVAL
+			ROOMBA.start if docked
 		end
 	end
 end
