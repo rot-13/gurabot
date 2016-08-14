@@ -115,15 +115,15 @@ def play_behavior(name)
 		when BEHAVIOR_SFX
 			Thread.new { play(name) }
 		when BEHAVIOR_LEFT
-			# ROOMBA.spin_left(velocity)
+			ROOMBA.spin_left(velocity)
 		when BEHAVIOR_RIGHT
-			# ROOMBA.spin_right(velocity)
+			ROOMBA.spin_right(velocity)
 		when BEHAVIOR_FORWARD
-			# ROOMBA.straight(velocity)
+			ROOMBA.straight(velocity)
 		when BEHAVIOR_BACKWARD
-			# ROOMBA.straight(-velocity)
+			ROOMBA.straight(-velocity)
 		when BEHAVIOR_HALT
-			# ROOMBA.halt
+			ROOMBA.halt
 		end
 		sleep (duration.to_f / 1000) if duration && duration > 0
 	end
@@ -171,6 +171,13 @@ namespace "/command" do
 		command_in_full_mode {
 			ROOMBA.define_song(2, [[76, 2], [72, 2], [72, 2], [74, 2], [74, 4], [77, 1], [79, 1], [77, 1], [76, 1], [76, 2], [72, 2], [72, 2], [74, 2], [74, 4]], 10)
 			ROOMBA.play_song(2)
+		}
+	end
+
+	post "/songs/hemal" do
+		command_in_full_mode {
+			ROOMBA.define_song(1, [[79, 1], [74, 3], [81, 3], [72, 5], [72, 2], [84, 4], [81, 4], [79, 4],[77, 4]], 10)
+			ROOMBA.play_song(1)
 		}
 	end
 
