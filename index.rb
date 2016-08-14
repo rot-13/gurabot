@@ -180,7 +180,6 @@ namespace "/command" do
 
 	post "/sensors" do
 		command_with_return_val {
-			puts STATE[:internal_sensors]
 			STATE[:sensors].to_json
 		}
 	end
@@ -199,12 +198,6 @@ if ROOMBA
 			sleep SENSORS_INTERVAL
 			STATE[:sensors] = ROOMBA.get_sensors(0)
 			put_me_down_check
-		end
-	end
-
-	Thread.new do
-		loop do
-			sleep SENSORS_INTERVAL
 			STATE[:internal_sensors] = ROOMBA.get_sensors(5)
 		end
 	end
