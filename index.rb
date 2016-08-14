@@ -18,7 +18,7 @@ begin
 	STATE = {sensors:{}, put_me_down: 0}
 rescue Exception => e
 	ROOMBA = nil
-	STATE = {}
+	STATE = {:sensors => {}}
 	puts "Error connecting to Roomba (reason: #{e}).".colorize(:red)
 end
 
@@ -195,8 +195,15 @@ if ROOMBA
 	Thread.new do
 		loop do
 			sleep SENSORS_INTERVAL
-			STATE[:sensors] = ROOMBA.get_sensors(0)
+			STATE[:sensors].merge!(ROOMBA.get_sensors(0))
 			put_me_down_check
+		end
+	end
+
+	Thread.new do
+		loop do
+			sleep SENSORS_INTERVAL
+			STATE[:sensors].merge!(ROOMBA.get_sensors(5))
 		end
 	end
 end

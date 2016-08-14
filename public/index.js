@@ -62,7 +62,7 @@ function fetchAndSetSensors() {
 			if (resultJson && resultJson['battery_charge'] && resultJson['battery_capacity']) {
 				setBattery(resultJson['battery_charge'] / resultJson['battery_capacity'])
 			}
-			if (resultJson && resultJson['charging_state'] === 'full_charging') {
+			if (resultJson && resultJson['charging_state'] !== 'full_charging') {
 				setCharging(true)
 			} else {
 				setCharging(false)
