@@ -198,7 +198,6 @@ if ROOMBA
 			sleep SENSORS_INTERVAL
 			STATE[:sensors] = ROOMBA.get_sensors(0)
 			put_me_down_check
-			STATE[:internal_sensors] = ROOMBA.get_sensors(5)
 		end
 	end
 end
