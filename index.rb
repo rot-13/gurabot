@@ -47,6 +47,14 @@ def command
 	"ok"
 end
 
+def command_in_full_mode
+	if ROOMBA
+		ROOMBA.full_mode if docked?
+		yield
+	end
+	"ok"
+end
+
 def command_with_return_val
 	yield if ROOMBA
 end
@@ -131,11 +139,11 @@ namespace "/command" do
 		ang = vector[1]
 		left = convert_ang_to_left_wheel(ang, vel)
 		right = convert_ang_to_left_wheel(ang - (Math::PI * 0.5), vel)
-		command { ROOMBA.drive_direct(left, right) }
+		command_in_full_mode { ROOMBA.drive_direct(left, right) }
 	end
 
 	post "/halt" do
-		command {
+		command_in_full_mode {
 			ROOMBA.halt
 			ROOMBA.stop_all_motors
 		}
@@ -154,23 +162,15 @@ namespace "/command" do
 		}
 	end
 
-	post "/wake" do
-		command { ROOMBA.full_mode }
-	end
-
-	post "/sleep" do
-		command { ROOMBA.start }
-	end
-
 	post "/songs/wrecking_ball" do
-		command {
+		command_in_full_mode {
 			ROOMBA.define_song(3, [[70, 1], [70, 1], [70, 1], [70, 1], [70, 1], [70, 3], [69, 1] ,[69, 7], [65, 1], [70, 1], [69, 1], [67, 1], [65, 1], [70, 3], [69, 1], [69, 4]], 16)
 			ROOMBA.play_song(3)
 		}
 	end
 
 	post "/songs/work" do
-		command {
+		command_in_full_mode {
 			ROOMBA.define_song(2, [[76, 2], [72, 2], [72, 2], [74, 2], [74, 4], [77, 1], [79, 1], [77, 1], [76, 1], [76, 2], [72, 2], [72, 2], [74, 2], [74, 4]], 10)
 			ROOMBA.play_song(2)
 		}
@@ -194,14 +194,9 @@ if ROOMBA
 		loop do
 			sleep SENSORS_INTERVAL
 			STATE[:sensors] = ROOMBA.get_sensors(6)
-			old_docked = !!STATE[:docked]
-			new_docked = STATE[:docked] = STATE[:sensors][:charging_sources_available][:home_base]
-			if old_docked != new_docked
-				if new_docked
-					ROOMBA.start
-				else
-					ROOMBA.full_mode
-				end
+			docked = STATE[:docked] = STATE[:sensors][:charging_sources_available][:home_base]
+			if docked
+				ROOMBA.start
 			end
 		end
 	end
