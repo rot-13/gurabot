@@ -115,15 +115,15 @@ def play_behavior(name)
 		when BEHAVIOR_SFX
 			Thread.new { play(name) }
 		when BEHAVIOR_LEFT
-			ROOMBA.spin_left(velocity)
+			# ROOMBA.spin_left(velocity)
 		when BEHAVIOR_RIGHT
-			ROOMBA.spin_right(velocity)
+			# ROOMBA.spin_right(velocity)
 		when BEHAVIOR_FORWARD
-			ROOMBA.straight(velocity)
+			# ROOMBA.straight(velocity)
 		when BEHAVIOR_BACKWARD
-			ROOMBA.straight(-velocity)
+			# ROOMBA.straight(-velocity)
 		when BEHAVIOR_HALT
-			ROOMBA.halt
+			# ROOMBA.halt
 		end
 		sleep (duration.to_f / 1000) if duration && duration > 0
 	end
